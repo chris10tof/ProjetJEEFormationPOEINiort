@@ -2,7 +2,7 @@ package fr.eni.ProjetJEE.bo;
 
 public class Reservation {
 	private int id;
-	private Table table;
+	private int table;
 	private String nom;
 	private String tel;
 	private int nbrePersonne;
@@ -11,7 +11,7 @@ public class Reservation {
 		super();
 	}
 
-	public Reservation(Table table, String nom, String tel, int nbrePersonne) {
+	public Reservation(int table, String nom, String tel, int nbrePersonne) {
 		super();
 		this.table = table;
 		this.nom = nom;
@@ -19,7 +19,7 @@ public class Reservation {
 		this.nbrePersonne = nbrePersonne;
 	}
 
-	public Reservation(int id, Table table, String nom, String tel, int nbrePersonne) {
+	public Reservation(int id, int table, String nom, String tel, int nbrePersonne) {
 		super();
 		this.id = id;
 		this.table = table;
@@ -36,11 +36,11 @@ public class Reservation {
 		this.id = id;
 	}
 
-	public Table getTable() {
+	public int getTable() {
 		return table;
 	}
 
-	public void setTable(Table table) {
+	public void setTable(int table) {
 		this.table = table;
 	}
 

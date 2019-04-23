@@ -17,11 +17,11 @@ public class RestaurantDAOJdbcImpl implements RestaurantDAO {
 	
 	private static final String SELECT_BY_ID =	"SELECT * FROM Restaurant WHERE id=?;";
 	
-	private static final String INSERT_RESTAURANT = "INSERT INTO RESTAURANT(localisation,nbre_table,uri_resto) VALUES(?,?,?);";
+	private static final String INSERT_RESTAURANT = "INSERT INTO RESTAURANT(localisation,nbre_table,uri_resto,localisation_x,localisation_y) VALUES(?,?,?,?,?);";
 
 	private static final String DELETE_RESTAURANT = "DELETE FROM Restaurant WHERE id=?";
 	
-	private static final String UPDATE_RESTAURANT = "UPDATE Restaurant set localisation=?, nbre_table=?, uri_resto=? WHERE id=?";
+	private static final String UPDATE_RESTAURANT = "UPDATE Restaurant set localisation=?, nbre_table=?, uri_resto=?, localisation_x=?, localisation_y=? WHERE id=?";
 	
 	@Override
 	public void insert(Restaurant restaurant) throws BusinessException {
@@ -39,6 +39,8 @@ public class RestaurantDAOJdbcImpl implements RestaurantDAO {
 			pstmt.setString(1, restaurant.getLocalisation());
 			pstmt.setInt(2, restaurant.getNbretable());
 			pstmt.setString(3, restaurant.getUriResto());
+			pstmt.setDouble(4, restaurant.getLocalisationX());
+			pstmt.setDouble(5, restaurant.getLocalisationY());
 			pstmt.executeUpdate();
 			
 			ResultSet rs = pstmt.getGeneratedKeys();
@@ -142,7 +144,9 @@ public class RestaurantDAOJdbcImpl implements RestaurantDAO {
 			pstmt.setString(1, restaurant.getLocalisation());
 			pstmt.setInt(2, restaurant.getNbretable());
 			pstmt.setString(3, restaurant.getUriResto());
-			pstmt.setInt(4, restaurant.getId());
+			pstmt.setDouble(4, restaurant.getLocalisationX());
+			pstmt.setDouble(5, restaurant.getLocalisationY());
+			pstmt.setInt(6, restaurant.getId());
 			pstmt.executeUpdate();
 		}
 		catch(Exception e)
@@ -162,18 +166,9 @@ public class RestaurantDAOJdbcImpl implements RestaurantDAO {
 		String localisation = rs.getString("localisation");
 		int nbreTable = rs.getInt("nbre_table");
 		String uriResto = rs.getString("uri_resto");
+		double localisationX = rs.getInt("localisation_x");
+		double localisationY = rs.getInt("localisation_y");
 		
-		return new Restaurant(id,localisation,nbreTable,uriResto);
+		return new Restaurant(id,localisation,nbreTable,uriResto,localisationX,localisationY);
 	}
 }
-
-
-
-
-
-
-
-
-
-
-

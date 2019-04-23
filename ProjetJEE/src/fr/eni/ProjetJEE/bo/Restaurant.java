@@ -5,24 +5,31 @@ public class Restaurant {
 	private String localisation;
 	private int nbretable;
 	private String uriResto;
+	private double localisationX;
+	private double localisationY;
 	
 	public Restaurant() {
 		super();
 	}
 
-	public Restaurant(String localisation, int nbretable, String uriResto) {
+	public Restaurant(String localisation, int nbretable, String uriResto, double localisationX, double localisationY) {
 		super();
 		this.localisation = localisation;
 		this.nbretable = nbretable;
 		this.uriResto = uriResto;
+		this.localisationX = localisationX;
+		this.localisationY = localisationY;
 	}
 
-	public Restaurant(int id, String localisation, int nbretable, String uriResto) {
+	public Restaurant(int id, String localisation, int nbretable, String uriResto, double localisationX,
+			double localisationY) {
 		super();
 		this.id = id;
 		this.localisation = localisation;
 		this.nbretable = nbretable;
 		this.uriResto = uriResto;
+		this.localisationX = localisationX;
+		this.localisationY = localisationY;
 	}
 
 	public int getId() {
@@ -55,5 +62,21 @@ public class Restaurant {
 
 	public void setUriResto(String uriResto) {
 		this.uriResto = uriResto;
+	}
+	
+	public double getLocalisationX() {
+		return localisationX;
+	}
+
+	public void setLocalisationX(double localisationX) {
+		this.localisationX = localisationX;
+	}
+
+	public double getLocalisationY() {
+		return localisationY;
+	}
+
+	public void setLocalisationY(double localisationY) {
+		this.localisationY = localisationY;
 	}
 }

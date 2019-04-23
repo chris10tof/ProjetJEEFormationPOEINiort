@@ -8,29 +8,24 @@ import java.util.ArrayList;
 import java.util.List;
 
 import fr.eni.ProjetJEE.BusinessException;
-import fr.eni.ProjetJEE.bo.Etat;
-import fr.eni.ProjetJEE.bo.Personne;
 import fr.eni.ProjetJEE.bo.Reservation;
-import fr.eni.ProjetJEE.bo.Restaurant;
-import fr.eni.ProjetJEE.bo.Role;
-import fr.eni.ProjetJEE.bo.Table;
-import fr.eni.ProjetJEE.dal.dao.PersonneDAO;
+import fr.eni.ProjetJEE.dal.dao.ReservationDAO;
 
-public class TableDAOJdbcImpl implements PersonneDAO {
+public class ReservationDAOJdbcImpl implements ReservationDAO {
 
-	private static final String SELECT_ALL = "select p.id, p.Nom, Prenom, email, mdp, uri_avatar, r.id as role_id, r.nom as role_nom from Personne p, Role r where p.role_id=r.id;";
+	private static final String SELECT_ALL = "SELECT * from Reservation;";
 	
-	private static final String SELECT_BY_ID =	"select p.id, p.Nom, Prenom, email, mdp, uri_avatar, r.id as role_id, r.nom as role_nom from Personne p, Role r where p.role_id=r.id and r.id=?;";
+	private static final String SELECT_BY_ID =	"SELECT * FROM Restaurant WHERE id=?;";
 	
-	private static final String INSERT_TABLE = "INSERT INTO Table(nom,prenom,email,mdp,uri_avatar,role_id) VALUES(?,?,?,?,?,?,?);";
+	private static final String INSERT_RESERVATION = "INSERT INTO RESERVATION(table,nom,tel,nbre_personnes) VALUES(?,?,?,?);";
 
-	private static final String DELETE_TABLE = "DELETE FROM Table WHERE id=?";
+	private static final String DELETE_RESERVATION = "DELETE FROM Reservation WHERE id=?";
 	
-	private static final String UPDATE_TABLE = "UPDATE Table set nom=? WHERE id=?";
+	private static final String UPDATE_RESERVATION = "UPDATE Reservation set table=?, nom=?, tel=?, nbre_personnes=? WHERE id=?";
 	
 	@Override
-	public void insert(Personne personne) throws BusinessException {
-		if(personne==null)
+	public void insert(Reservation reservation) throws BusinessException {
+		if(reservation==null)
 		{
 			BusinessException businessException = new BusinessException();
 			//TODO : CodesResultatDAL
@@ -40,18 +35,16 @@ public class TableDAOJdbcImpl implements PersonneDAO {
 		
 		try(Connection cnx = ConnectionProvider.getConnection())
 		{
-			PreparedStatement pstmt = cnx.prepareStatement(INSERT_PERSONNE, PreparedStatement.RETURN_GENERATED_KEYS);			
-			pstmt.setString(1, personne.getNom());
-			pstmt.setString(2, personne.getPrenom());
-			pstmt.setString(3, personne.getEmail());
-			pstmt.setString(4, personne.getMdp());
-			pstmt.setString(5, personne.getUriAvatar());
-			pstmt.setInt(6, personne.getRole().getId());
+			PreparedStatement pstmt = cnx.prepareStatement(INSERT_RESERVATION, PreparedStatement.RETURN_GENERATED_KEYS);			
+			pstmt.setInt(1, reservation.getTable());
+			pstmt.setString(2, reservation.getNom());
+			pstmt.setString(3, reservation.getTel());
+			pstmt.setDouble(4, reservation.getNbrePersonne());
 			pstmt.executeUpdate();
 			
 			ResultSet rs = pstmt.getGeneratedKeys();
 			if(rs.next()) {
-				personne.setId(rs.getInt(1));
+				reservation.setId(rs.getInt(1));
 			}
 		}
 		catch(Exception e)
@@ -68,7 +61,7 @@ public class TableDAOJdbcImpl implements PersonneDAO {
 	public void delete(int id) throws BusinessException {
 		try(Connection cnx = ConnectionProvider.getConnection())
 		{
-			PreparedStatement pstmt = cnx.prepareStatement(DELETE_PERSONNE);
+			PreparedStatement pstmt = cnx.prepareStatement(DELETE_RESERVATION);
 			pstmt.setInt(1, id);
 			pstmt.executeUpdate();
 		} catch (SQLException e) {
@@ -82,15 +75,15 @@ public class TableDAOJdbcImpl implements PersonneDAO {
 	}
 
 	@Override
-	public List<Personne> selectAll() throws BusinessException {
-		List<Personne> personnes = new ArrayList<Personne>();
+	public List<Reservation> selectAll() throws BusinessException {
+		List<Reservation> restaurants = new ArrayList<Reservation>();
 		try(Connection cnx = ConnectionProvider.getConnection())
 		{
 			PreparedStatement pstmt = cnx.prepareStatement(SELECT_ALL);
 			ResultSet rs = pstmt.executeQuery();
 			while(rs.next())
 			{
-				personnes.add(map(rs));
+				restaurants.add(map(rs));
 			}
 		}
 		catch(Exception e)
@@ -101,12 +94,12 @@ public class TableDAOJdbcImpl implements PersonneDAO {
 			//businessException.ajouterErreur(CodesResultatDAL.LECTURE_LISTES_ECHEC);
 			throw businessException;
 		}
-		return personnes;
+		return restaurants;
 	}
 
 	@Override
-	public Personne selectById(int id) throws BusinessException {
-		Personne result = null;
+	public Reservation selectById(int id) throws BusinessException {
+		Reservation result = null;
 		try(Connection cnx = ConnectionProvider.getConnection())
 		{
 			PreparedStatement pstmt = cnx.prepareStatement(SELECT_BY_ID);
@@ -135,8 +128,8 @@ public class TableDAOJdbcImpl implements PersonneDAO {
 	}
 	
 	@Override
-	public void update(Personne personne) throws BusinessException {
-		if(personne==null)
+	public void update(Reservation reservation) throws BusinessException {
+		if(reservation==null)
 		{
 			BusinessException businessException = new BusinessException();
 			//TODO : CodesResultatDAL
@@ -146,14 +139,12 @@ public class TableDAOJdbcImpl implements PersonneDAO {
 		
 		try(Connection cnx = ConnectionProvider.getConnection())
 		{
-			PreparedStatement pstmt = cnx.prepareStatement(UPDATE_PERSONNE);			
-			pstmt.setString(1, personne.getNom());
-			pstmt.setString(2, personne.getPrenom());
-			pstmt.setString(3, personne.getEmail());
-			pstmt.setString(4, personne.getMdp());
-			pstmt.setString(5, personne.getUriAvatar());
-			pstmt.setInt(6, personne.getRole().getId());
-			pstmt.setInt(7, personne.getId());
+			PreparedStatement pstmt = cnx.prepareStatement(UPDATE_RESERVATION);			
+			pstmt.setInt(1, reservation.getTable());
+			pstmt.setString(2, reservation.getNom());
+			pstmt.setString(3, reservation.getTel());
+			pstmt.setInt(4, reservation.getNbrePersonne());
+			pstmt.setInt(5, reservation.getId());
 			pstmt.executeUpdate();
 		}
 		catch(Exception e)
@@ -167,36 +158,14 @@ public class TableDAOJdbcImpl implements PersonneDAO {
 	}
 	
 
-	private Table map(ResultSet rs) throws SQLException {
+	private Reservation map(ResultSet rs) throws SQLException {
 		
 		int id = rs.getInt("id");
+		int tableId = rs.getInt("table_id");
+		String nom = rs.getString("nom");
+		String tel = rs.getString("tel");
+		int nbrePersonnes = rs.getInt("nbre_personnes");
 		
-		Reservation reservation = new Reservation();
-		
-		Restaurant restaurant = new Restaurant();
-		
-		Etat etat = new Etat();
-		int etatId = rs.getInt("etat_id");
-		String etatCouleur = rs.getString("etat_couleur");
-		String etatEtat = rs.getString("etat_etat");
-		
-		etat.setId(etatId);
-		etat.setCouleur(etatCouleur);
-		etat.setEtat(etatEtat);
-		
-		Table table = new Table(id, reservation, restaurant, etat);
-		
-		return table;
+		return new Reservation(id,tableId,nom,tel,nbrePersonnes);
 	}
 }
-
-
-
-
-
-
-
-
-
-
-
