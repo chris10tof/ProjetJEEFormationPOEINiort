@@ -8,25 +8,25 @@ import java.util.ArrayList;
 import java.util.List;
 
 import fr.eni.ProjetJEE.BusinessException;
+import fr.eni.ProjetJEE.bo.Personne;
 import fr.eni.ProjetJEE.bo.Role;
-import fr.eni.ProjetJEE.dal.dao.RoleDAO;
+import fr.eni.ProjetJEE.dal.dao.PersonneDAO;
 
-public class RoleDAOJdbcImpl implements RoleDAO {
+public class TableDAOJdbcImpl implements PersonneDAO {
 
-	private static final String SELECT_ALL = "SELECT * FROM Role";
+	private static final String SELECT_ALL = "select p.id, p.Nom, Prenom, email, mdp, uri_avatar, r.id as role_id, r.nom as role_nom from Personne p, Role r where p.role_id=r.id;";
 	
-	private static final String SELECT_BY_ID =	SELECT_ALL +
-												" WHERE id=?";
+	private static final String SELECT_BY_ID =	"select p.id, p.Nom, Prenom, email, mdp, uri_avatar, r.id as role_id, r.nom as role_nom from Personne p, Role r where p.role_id=r.id and r.id=?;";
 	
-	private static final String INSERT_ROLE = "INSERT INTO Role(nom) VALUES(?);";
+	private static final String INSERT_TABLE = "INSERT INTO Table(nom,prenom,email,mdp,uri_avatar,role_id) VALUES(?,?,?,?,?,?,?);";
 
-	private static final String DELETE_ROLE = "DELETE FROM Role WHERE id=?";
+	private static final String DELETE_TABLE = "DELETE FROM Table WHERE id=?";
 	
-	private static final String UPDATE_ROLE = "UPDATE Role set nom=? WHERE id=?";
+	private static final String UPDATE_TABLE = "UPDATE Table set nom=? WHERE id=?";
 	
 	@Override
-	public void insert(Role role) throws BusinessException {
-		if(role==null)
+	public void insert(Personne personne) throws BusinessException {
+		if(personne==null)
 		{
 			BusinessException businessException = new BusinessException();
 			//TODO : CodesResultatDAL
@@ -36,13 +36,18 @@ public class RoleDAOJdbcImpl implements RoleDAO {
 		
 		try(Connection cnx = ConnectionProvider.getConnection())
 		{
-			PreparedStatement pstmt = cnx.prepareStatement(INSERT_ROLE, PreparedStatement.RETURN_GENERATED_KEYS);			
-			pstmt.setString(1, role.getNom());
+			PreparedStatement pstmt = cnx.prepareStatement(INSERT_PERSONNE, PreparedStatement.RETURN_GENERATED_KEYS);			
+			pstmt.setString(1, personne.getNom());
+			pstmt.setString(2, personne.getPrenom());
+			pstmt.setString(3, personne.getEmail());
+			pstmt.setString(4, personne.getMdp());
+			pstmt.setString(5, personne.getUriAvatar());
+			pstmt.setInt(6, personne.getRole().getId());
 			pstmt.executeUpdate();
 			
 			ResultSet rs = pstmt.getGeneratedKeys();
 			if(rs.next()) {
-				role.setId(rs.getInt(1));
+				personne.setId(rs.getInt(1));
 			}
 		}
 		catch(Exception e)
@@ -59,7 +64,7 @@ public class RoleDAOJdbcImpl implements RoleDAO {
 	public void delete(int id) throws BusinessException {
 		try(Connection cnx = ConnectionProvider.getConnection())
 		{
-			PreparedStatement pstmt = cnx.prepareStatement(DELETE_ROLE);
+			PreparedStatement pstmt = cnx.prepareStatement(DELETE_PERSONNE);
 			pstmt.setInt(1, id);
 			pstmt.executeUpdate();
 		} catch (SQLException e) {
@@ -73,15 +78,15 @@ public class RoleDAOJdbcImpl implements RoleDAO {
 	}
 
 	@Override
-	public List<Role> selectAll() throws BusinessException {
-		List<Role> roles = new ArrayList<Role>();
+	public List<Personne> selectAll() throws BusinessException {
+		List<Personne> personnes = new ArrayList<Personne>();
 		try(Connection cnx = ConnectionProvider.getConnection())
 		{
 			PreparedStatement pstmt = cnx.prepareStatement(SELECT_ALL);
 			ResultSet rs = pstmt.executeQuery();
 			while(rs.next())
 			{
-				roles.add(map(rs));
+				personnes.add(map(rs));
 			}
 		}
 		catch(Exception e)
@@ -92,12 +97,12 @@ public class RoleDAOJdbcImpl implements RoleDAO {
 			//businessException.ajouterErreur(CodesResultatDAL.LECTURE_LISTES_ECHEC);
 			throw businessException;
 		}
-		return roles;
+		return personnes;
 	}
 
 	@Override
-	public Role selectById(int id) throws BusinessException {
-		Role result = null;
+	public Personne selectById(int id) throws BusinessException {
+		Personne result = null;
 		try(Connection cnx = ConnectionProvider.getConnection())
 		{
 			PreparedStatement pstmt = cnx.prepareStatement(SELECT_BY_ID);
@@ -126,8 +131,8 @@ public class RoleDAOJdbcImpl implements RoleDAO {
 	}
 	
 	@Override
-	public void update(Role role) throws BusinessException {
-		if(role==null)
+	public void update(Personne personne) throws BusinessException {
+		if(personne==null)
 		{
 			BusinessException businessException = new BusinessException();
 			//TODO : CodesResultatDAL
@@ -137,9 +142,14 @@ public class RoleDAOJdbcImpl implements RoleDAO {
 		
 		try(Connection cnx = ConnectionProvider.getConnection())
 		{
-			PreparedStatement pstmt = cnx.prepareStatement(UPDATE_ROLE);			
-			pstmt.setString(1, role.getNom());
-			pstmt.setInt(2, role.getId());
+			PreparedStatement pstmt = cnx.prepareStatement(UPDATE_PERSONNE);			
+			pstmt.setString(1, personne.getNom());
+			pstmt.setString(2, personne.getPrenom());
+			pstmt.setString(3, personne.getEmail());
+			pstmt.setString(4, personne.getMdp());
+			pstmt.setString(5, personne.getUriAvatar());
+			pstmt.setInt(6, personne.getRole().getId());
+			pstmt.setInt(7, personne.getId());
 			pstmt.executeUpdate();
 		}
 		catch(Exception e)
@@ -153,12 +163,24 @@ public class RoleDAOJdbcImpl implements RoleDAO {
 	}
 	
 
-	private Role map(ResultSet rs) throws SQLException {
+	private Personne map(ResultSet rs) throws SQLException {
 		
 		int id = rs.getInt("id");
 		String nom = rs.getString("nom");
+		String prenom = rs.getString("prenom");
+		String email = rs.getString("email");
+		String mdp = rs.getString("mdp");
+		String uriAvatar = rs.getString("uri_avatar");
 		
-		return new Role(id, nom);
+		Role role = new Role();
+		int roleId = rs.getInt("role_id");
+		String roleName = rs.getString("role_nom");
+		
+		role.setId(roleId);
+		role.setNom(roleName);
+		Personne personne = new Personne(id, nom, prenom, email, mdp, uriAvatar, role);
+		
+		return personne;
 	}
 }
 

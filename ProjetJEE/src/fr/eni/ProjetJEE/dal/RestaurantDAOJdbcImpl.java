@@ -8,25 +8,24 @@ import java.util.ArrayList;
 import java.util.List;
 
 import fr.eni.ProjetJEE.BusinessException;
-import fr.eni.ProjetJEE.bo.Role;
-import fr.eni.ProjetJEE.dal.dao.RoleDAO;
+import fr.eni.ProjetJEE.bo.Restaurant;
+import fr.eni.ProjetJEE.dal.dao.RestaurantDAO;
 
-public class RoleDAOJdbcImpl implements RoleDAO {
+public class RestaurantDAOJdbcImpl implements RestaurantDAO {
 
-	private static final String SELECT_ALL = "SELECT * FROM Role";
+	private static final String SELECT_ALL = "SELECT * from Restaurant;";
 	
-	private static final String SELECT_BY_ID =	SELECT_ALL +
-												" WHERE id=?";
+	private static final String SELECT_BY_ID =	"SELECT * FROM Restaurant WHERE id=?;";
 	
-	private static final String INSERT_ROLE = "INSERT INTO Role(nom) VALUES(?);";
+	private static final String INSERT_RESTAURANT = "INSERT INTO RESTAURANT(localisation,nbre_table,uri_resto) VALUES(?,?,?);";
 
-	private static final String DELETE_ROLE = "DELETE FROM Role WHERE id=?";
+	private static final String DELETE_RESTAURANT = "DELETE FROM Restaurant WHERE id=?";
 	
-	private static final String UPDATE_ROLE = "UPDATE Role set nom=? WHERE id=?";
+	private static final String UPDATE_RESTAURANT = "UPDATE Restaurant set localisation=?, nbre_table=?, uri_resto=? WHERE id=?";
 	
 	@Override
-	public void insert(Role role) throws BusinessException {
-		if(role==null)
+	public void insert(Restaurant restaurant) throws BusinessException {
+		if(restaurant==null)
 		{
 			BusinessException businessException = new BusinessException();
 			//TODO : CodesResultatDAL
@@ -36,13 +35,15 @@ public class RoleDAOJdbcImpl implements RoleDAO {
 		
 		try(Connection cnx = ConnectionProvider.getConnection())
 		{
-			PreparedStatement pstmt = cnx.prepareStatement(INSERT_ROLE, PreparedStatement.RETURN_GENERATED_KEYS);			
-			pstmt.setString(1, role.getNom());
+			PreparedStatement pstmt = cnx.prepareStatement(INSERT_RESTAURANT, PreparedStatement.RETURN_GENERATED_KEYS);			
+			pstmt.setString(1, restaurant.getLocalisation());
+			pstmt.setInt(2, restaurant.getNbretable());
+			pstmt.setString(3, restaurant.getUriResto());
 			pstmt.executeUpdate();
 			
 			ResultSet rs = pstmt.getGeneratedKeys();
 			if(rs.next()) {
-				role.setId(rs.getInt(1));
+				restaurant.setId(rs.getInt(1));
 			}
 		}
 		catch(Exception e)
@@ -59,7 +60,7 @@ public class RoleDAOJdbcImpl implements RoleDAO {
 	public void delete(int id) throws BusinessException {
 		try(Connection cnx = ConnectionProvider.getConnection())
 		{
-			PreparedStatement pstmt = cnx.prepareStatement(DELETE_ROLE);
+			PreparedStatement pstmt = cnx.prepareStatement(DELETE_RESTAURANT);
 			pstmt.setInt(1, id);
 			pstmt.executeUpdate();
 		} catch (SQLException e) {
@@ -73,15 +74,15 @@ public class RoleDAOJdbcImpl implements RoleDAO {
 	}
 
 	@Override
-	public List<Role> selectAll() throws BusinessException {
-		List<Role> roles = new ArrayList<Role>();
+	public List<Restaurant> selectAll() throws BusinessException {
+		List<Restaurant> restaurants = new ArrayList<Restaurant>();
 		try(Connection cnx = ConnectionProvider.getConnection())
 		{
 			PreparedStatement pstmt = cnx.prepareStatement(SELECT_ALL);
 			ResultSet rs = pstmt.executeQuery();
 			while(rs.next())
 			{
-				roles.add(map(rs));
+				restaurants.add(map(rs));
 			}
 		}
 		catch(Exception e)
@@ -92,12 +93,12 @@ public class RoleDAOJdbcImpl implements RoleDAO {
 			//businessException.ajouterErreur(CodesResultatDAL.LECTURE_LISTES_ECHEC);
 			throw businessException;
 		}
-		return roles;
+		return restaurants;
 	}
 
 	@Override
-	public Role selectById(int id) throws BusinessException {
-		Role result = null;
+	public Restaurant selectById(int id) throws BusinessException {
+		Restaurant result = null;
 		try(Connection cnx = ConnectionProvider.getConnection())
 		{
 			PreparedStatement pstmt = cnx.prepareStatement(SELECT_BY_ID);
@@ -126,8 +127,8 @@ public class RoleDAOJdbcImpl implements RoleDAO {
 	}
 	
 	@Override
-	public void update(Role role) throws BusinessException {
-		if(role==null)
+	public void update(Restaurant restaurant) throws BusinessException {
+		if(restaurant==null)
 		{
 			BusinessException businessException = new BusinessException();
 			//TODO : CodesResultatDAL
@@ -137,9 +138,11 @@ public class RoleDAOJdbcImpl implements RoleDAO {
 		
 		try(Connection cnx = ConnectionProvider.getConnection())
 		{
-			PreparedStatement pstmt = cnx.prepareStatement(UPDATE_ROLE);			
-			pstmt.setString(1, role.getNom());
-			pstmt.setInt(2, role.getId());
+			PreparedStatement pstmt = cnx.prepareStatement(UPDATE_RESTAURANT);			
+			pstmt.setString(1, restaurant.getLocalisation());
+			pstmt.setInt(2, restaurant.getNbretable());
+			pstmt.setString(3, restaurant.getUriResto());
+			pstmt.setInt(4, restaurant.getId());
 			pstmt.executeUpdate();
 		}
 		catch(Exception e)
@@ -153,12 +156,14 @@ public class RoleDAOJdbcImpl implements RoleDAO {
 	}
 	
 
-	private Role map(ResultSet rs) throws SQLException {
+	private Restaurant map(ResultSet rs) throws SQLException {
 		
 		int id = rs.getInt("id");
-		String nom = rs.getString("nom");
+		String localisation = rs.getString("localisation");
+		int nbreTable = rs.getInt("nbre_table");
+		String uriResto = rs.getString("uri_resto");
 		
-		return new Role(id, nom);
+		return new Restaurant(id,localisation,nbreTable,uriResto);
 	}
 }
 

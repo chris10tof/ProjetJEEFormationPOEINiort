@@ -1,4 +1,4 @@
-package fr.eni.ProjetJEE.dal;
+package fr.eni.ProjetJEE.dal.dao;
 
 import java.util.List;
 

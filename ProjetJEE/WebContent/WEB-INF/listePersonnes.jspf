@@ -1,0 +1,21 @@
+
+<%@ page import="fr.eni.ProjetJEE.bo.*, java.util.*, java.text.*"%>
+<div id="listePersonne">
+	<%
+		ArrayList<Personne> listePersonnes = (ArrayList<Personne>)request.getSession().getAttribute("listePersonnes");
+	 	for(Personne f : listePersonnes) {
+	%>
+	
+	<div class="personne">
+		<p><%=f.getId() %></p>
+		<p><%= f.getNom() %></p>
+		<p><%= f.getPrenom() %></p>
+		<p><%= f.getEmail() %></p>
+		<p><%= f.getMdp() %></p>
+		<p><%= f.getUriAvatar() %></p>
+		<p><%= f.getRole().getId()%></p>
+		<p><%= f.getRole().getNom()%></p>
+	</div>
+	<br />
+	<% } %>
+</div>

@@ -7,8 +7,7 @@ public class Personne {
 	private String email;
 	private String mdp;
 	private String uriAvatar;
-	private Role role;
-	
+	private Role role;	
 	
 	public Personne() {
 		super();
