@@ -1,0 +1,15 @@
+
+<%@ page import="fr.eni.ProjetJEE.bo.*, java.util.*, java.text.*"%>
+<div id="listeFormation">
+	<%
+  		DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+		ArrayList<Role> listeFormations = (ArrayList<Role>)request.getSession().getAttribute("listeRoles");
+	 	for(Role f : listeFormations) {
+	%>
+	<div class="formation">
+		<h2><%=f.getId() %></h2>
+		<p><%= f.getNom() %></p>
+	</div>
+	<br />
+	<% } %>
+</div>
