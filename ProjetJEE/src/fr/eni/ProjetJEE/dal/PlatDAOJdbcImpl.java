@@ -8,20 +8,21 @@ import java.util.ArrayList;
 import java.util.List;
 
 import fr.eni.ProjetJEE.BusinessException;
-import fr.eni.ProjetJEE.bo.Etat;
-import fr.eni.ProjetJEE.dal.dao.EtatDAO;
+import fr.eni.ProjetJEE.bo.Categorie;
+import fr.eni.ProjetJEE.bo.Plat;
+import fr.eni.ProjetJEE.dal.dao.PlatDAO;
 
-public class EtatDAOJdbcImpl implements EtatDAO {
+public class PlatDAOJdbcImpl implements PlatDAO {
 
-	private static final String SELECT_ALL = "SELECT * FROM Etat";	
-	private static final String SELECT_BY_ID = "SELECT_ALL WHERE id=?";	
-	private static final String INSERT_ETAT = "INSERT INTO Etat(couleur,etat) VALUES(?,?);";
-	private static final String DELETE_ETAT = "DELETE FROM Etat WHERE id=?";	
-	private static final String UPDATE_ETAT = "UPDATE Etat set couleur=?,etat=? WHERE id=?";
+	private static final String SELECT_ALL = "SELECT p.id,p.nom,description,prix,recette,uri_image,categorie_id,nbre_commande_totale,c.id as catId,c.nom as catNom FROM Plat p, Categorie c WHERE p.categorie_id=c.id;";	
+	private static final String SELECT_BY_ID =	"SELECT p.id,p.nom,description,prix,recette,uri_image,categorie_id,c.id,c.nom FROM Plat p, Categorie c WHERE p.categorie_id=c.id; AND c.id=?";	
+	private static final String INSERT_PLAT = "INSERT INTO PLAT(nom,description,prix,recette,uri_image,categorie_id,nbre_commande_totale) VALUES(?,?,?,?,?,?,?);";
+	private static final String DELETE_PLAT = "DELETE FROM PLAT WHERE id=?";	
+	private static final String UPDATE_PLAT = "UPDATE PLAT set nom=?,description=?,prix=?,recette=?,uri_image=?,categorie_id=?,nbre_commande_totale=?  WHERE id=?";
 	
 	@Override
-	public void insert(Etat etat) throws BusinessException {
-		if(etat==null)
+	public void insert(Plat plat) throws BusinessException {
+		if(plat==null)
 		{
 			BusinessException businessException = new BusinessException();
 			//TODO : CodesResultatDAL
@@ -31,14 +32,19 @@ public class EtatDAOJdbcImpl implements EtatDAO {
 		
 		try(Connection cnx = ConnectionProvider.getConnection())
 		{
-			PreparedStatement pstmt = cnx.prepareStatement(INSERT_ETAT, PreparedStatement.RETURN_GENERATED_KEYS);			
-			pstmt.setString(1, etat.getCouleur());
-			pstmt.setString(2, etat.getEtat());
+			PreparedStatement pstmt = cnx.prepareStatement(INSERT_PLAT, PreparedStatement.RETURN_GENERATED_KEYS);			
+			pstmt.setString(1, plat.getNom());
+			pstmt.setString(2, plat.getDescription());
+			pstmt.setDouble(3, plat.getPrix());
+			pstmt.setString(4, plat.getRecette());
+			pstmt.setString(5, plat.getUriImage());
+			pstmt.setInt(6, plat.getCategorie().getId());
+			pstmt.setInt(4, plat.getNbrCommande());
 			pstmt.executeUpdate();
 			
 			ResultSet rs = pstmt.getGeneratedKeys();
 			if(rs.next()) {
-				etat.setId(rs.getInt(1));
+				plat.setId(rs.getInt(1));
 			}
 		}
 		catch(Exception e)
@@ -55,7 +61,7 @@ public class EtatDAOJdbcImpl implements EtatDAO {
 	public void delete(int id) throws BusinessException {
 		try(Connection cnx = ConnectionProvider.getConnection())
 		{
-			PreparedStatement pstmt = cnx.prepareStatement(DELETE_ETAT);
+			PreparedStatement pstmt = cnx.prepareStatement(DELETE_PLAT);
 			pstmt.setInt(1, id);
 			pstmt.executeUpdate();
 		} catch (SQLException e) {
@@ -69,15 +75,15 @@ public class EtatDAOJdbcImpl implements EtatDAO {
 	}
 
 	@Override
-	public List<Etat> selectAll() throws BusinessException {
-		List<Etat> roles = new ArrayList<Etat>();
+	public List<Plat> selectAll() throws BusinessException {
+		List<Plat> personnes = new ArrayList<Plat>();
 		try(Connection cnx = ConnectionProvider.getConnection())
 		{
 			PreparedStatement pstmt = cnx.prepareStatement(SELECT_ALL);
 			ResultSet rs = pstmt.executeQuery();
 			while(rs.next())
 			{
-				roles.add(map(rs));
+				personnes.add(map(rs));
 			}
 		}
 		catch(Exception e)
@@ -88,12 +94,12 @@ public class EtatDAOJdbcImpl implements EtatDAO {
 			//businessException.ajouterErreur(CodesResultatDAL.LECTURE_LISTES_ECHEC);
 			throw businessException;
 		}
-		return roles;
+		return personnes;
 	}
 
 	@Override
-	public Etat selectById(int id) throws BusinessException {
-		Etat result = null;
+	public Plat selectById(int id) throws BusinessException {
+		Plat result = null;
 		try(Connection cnx = ConnectionProvider.getConnection())
 		{
 			PreparedStatement pstmt = cnx.prepareStatement(SELECT_BY_ID);
@@ -122,8 +128,8 @@ public class EtatDAOJdbcImpl implements EtatDAO {
 	}
 	
 	@Override
-	public void update(Etat etat) throws BusinessException {
-		if(etat==null)
+	public void update(Plat plat) throws BusinessException {
+		if(plat==null)
 		{
 			BusinessException businessException = new BusinessException();
 			//TODO : CodesResultatDAL
@@ -133,10 +139,14 @@ public class EtatDAOJdbcImpl implements EtatDAO {
 		
 		try(Connection cnx = ConnectionProvider.getConnection())
 		{
-			PreparedStatement pstmt = cnx.prepareStatement(UPDATE_ETAT);			
-			pstmt.setString(1, etat.getCouleur());
-			pstmt.setString(2, etat.getEtat());
-			pstmt.setInt(3, etat.getId());
+			PreparedStatement pstmt = cnx.prepareStatement(UPDATE_PLAT);			
+			pstmt.setString(1, plat.getNom());
+			pstmt.setString(2, plat.getDescription());
+			pstmt.setDouble(3, plat.getPrix());
+			pstmt.setString(4, plat.getRecette());
+			pstmt.setString(5, plat.getUriImage());
+			pstmt.setInt(6, plat.getCategorie().getId());
+			pstmt.setInt(7, plat.getNbrCommande());
 			pstmt.executeUpdate();
 		}
 		catch(Exception e)
@@ -147,15 +157,25 @@ public class EtatDAOJdbcImpl implements EtatDAO {
 			//businessException.ajouterErreur(CodesResultatDAL.INSERT_OBJET_ECHEC);
 			throw businessException;
 		}
-	}
-	
+	}	
 
-	private Etat map(ResultSet rs) throws SQLException {
+	private Plat map(ResultSet rs) throws SQLException {
 		
 		int id = rs.getInt("id");
-		String couleur = rs.getString("couleur");
-		String etat = rs.getString("etat");
+		String nom = rs.getString("nom");
+		String description = rs.getString("description");
+		Double prix = rs.getDouble("prix");
+		String recette = rs.getString("recette");
+		String uriImage = rs.getString("uri_image");		
+		Categorie categorieId = new Categorie();
+		int catId = rs.getInt("catId");
+		String catNom = rs.getString("catNom");		
+		categorieId.setId(catId);
+		categorieId.setNom(catNom);
+		int nbrCommande = rs.getInt("nbre_commande_totale");
 		
-		return new Etat(id, couleur, etat);
+		Plat plat = new Plat(id, nom, description, prix, recette, uriImage, categorieId, nbrCommande);
+		
+		return plat;
 	}
 }

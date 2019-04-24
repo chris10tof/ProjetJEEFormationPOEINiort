@@ -1,48 +1,60 @@
 package fr.eni.ProjetJEE.bo;
 
 public class Table {
-	private int id;
-	private int restaurantId;
-	private Etat etat;
+	
+	private int idTable;
+	private int reservationId;
+	private Etat etatId;
+	private Restaurant restaurantId;	
 	
 	public Table() {
 		super();
 	}
-
-	public Table(int restaurantId, Etat etat) {
+	
+	public Table(int reservationId, Etat etatId, Restaurant restaurantId) {
 		super();
+		this.reservationId = reservationId;
+		this.etatId = etatId;
 		this.restaurantId = restaurantId;
-		this.etat = etat;
 	}
 
-	public Table(int id, int restaurantId, Etat etat) {
+	public Table(int idTable, int reservationId, Etat etatId, Restaurant restaurantId) {
 		super();
-		this.id = id;
+		this.idTable = idTable;
+		this.reservationId = reservationId;
+		this.etatId = etatId;
 		this.restaurantId = restaurantId;
-		this.etat = etat;
 	}
 
-	public int getId() {
-		return id;
+	public int getIdTable() {
+		return idTable;
 	}
 
-	public void setId(int id) {
-		this.id = id;
+	public void setIdTable(int idTable) {
+		this.idTable = idTable;
 	}
 
-	public int getRestaurantId() {
+	public int getReservationId() {
+		return reservationId;
+	}
+
+	public void setReservationId(int reservationId) {
+		this.reservationId = reservationId;
+	}
+
+	public Etat getEtatId() {
+		return etatId;
+	}
+
+	public void setEtatId(Etat etatId) {
+		this.etatId = etatId;
+	}
+
+	public Restaurant getRestaurantId() {
 		return restaurantId;
 	}
 
-	public void setRestaurantId(int restaurantId) {
+	public void setRestaurantId(Restaurant restaurantId) {
 		this.restaurantId = restaurantId;
-	}
-
-	public Etat getEtat() {
-		return etat;
-	}
-
-	public void setEtat(Etat etat) {
-		this.etat = etat;
-	}
+	}	
 }

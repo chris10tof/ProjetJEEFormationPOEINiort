@@ -15,82 +15,24 @@ import fr.eni.ProjetJEE.bo.Restaurant;
 import fr.eni.ProjetJEE.bo.Role;
 import fr.eni.ProjetJEE.bo.Table;
 import fr.eni.ProjetJEE.dal.dao.PersonneDAO;
+import fr.eni.ProjetJEE.dal.dao.TableDAO;
 
-public class TableDAOJdbcImpl implements PersonneDAO {
+public class TableDAOJdbcImpl implements TableDAO {
 
-	private static final String SELECT_ALL = "select p.id, p.Nom, Prenom, email, mdp, uri_avatar, r.id as role_id, r.nom as role_nom from Personne p, Role r where p.role_id=r.id;";
-	
-	private static final String SELECT_BY_ID =	"select p.id, p.Nom, Prenom, email, mdp, uri_avatar, r.id as role_id, r.nom as role_nom from Personne p, Role r where p.role_id=r.id and r.id=?;";
-	
-	private static final String INSERT_TABLE = "INSERT INTO Table(nom,prenom,email,mdp,uri_avatar,role_id) VALUES(?,?,?,?,?,?,?);";
-
-	private static final String DELETE_TABLE = "DELETE FROM Table WHERE id=?";
-	
-	private static final String UPDATE_TABLE = "UPDATE Table set nom=? WHERE id=?";
-	
-	@Override
-	public void insert(Personne personne) throws BusinessException {
-		if(personne==null)
-		{
-			BusinessException businessException = new BusinessException();
-			//TODO : CodesResultatDAL
-			//businessException.ajouterErreur(CodesResultatDAL.INSERT_OBJET_NULL);
-			throw businessException;
-		}
-		
-		try(Connection cnx = ConnectionProvider.getConnection())
-		{
-			PreparedStatement pstmt = cnx.prepareStatement(INSERT_PERSONNE, PreparedStatement.RETURN_GENERATED_KEYS);			
-			pstmt.setString(1, personne.getNom());
-			pstmt.setString(2, personne.getPrenom());
-			pstmt.setString(3, personne.getEmail());
-			pstmt.setString(4, personne.getMdp());
-			pstmt.setString(5, personne.getUriAvatar());
-			pstmt.setInt(6, personne.getRole().getId());
-			pstmt.executeUpdate();
-			
-			ResultSet rs = pstmt.getGeneratedKeys();
-			if(rs.next()) {
-				personne.setId(rs.getInt(1));
-			}
-		}
-		catch(Exception e)
-		{
-			e.printStackTrace();
-			BusinessException businessException = new BusinessException();
-			//TODO : CodesResultatDAL
-			//businessException.ajouterErreur(CodesResultatDAL.INSERT_OBJET_ECHEC);
-			throw businessException;
-		}
-	}
+	private static final String SELECT_ALL = "SELECT t.id, t.etat_id,t.restaurant_id,e.id,e.couleur,e.etat,r.id,r.localisation,r.nbre_table,r.uri_resto,r.localisation_x,r.localisation_y FROM [Table] t, Etat e, Restaurant r WHERE t.etat_id=e.id AND t.restaurant_id=r.id;";	
+	private static final String SELECT_BY_ID =	"SELECT t.id, t.etat_id,t.restaurant_id,e.id,e.couleur,e.etat,r.id,r.localisation,r.nbre_table,r.uri_resto,r.localisation_x,r.localisation_y FROM [Table] t, Etat e, Restaurant r WHERE t.etat_id=e.id AND t.restaurant_id=r.id AND t.id=?;";		
+	private static final String UPDATE_TABLE = "UPDATE Table set reservation_id=?, etat_id=? WHERE id=?";
 
 	@Override
-	public void delete(int id) throws BusinessException {
-		try(Connection cnx = ConnectionProvider.getConnection())
-		{
-			PreparedStatement pstmt = cnx.prepareStatement(DELETE_PERSONNE);
-			pstmt.setInt(1, id);
-			pstmt.executeUpdate();
-		} catch (SQLException e) {
-			e.printStackTrace();
-			BusinessException businessException = new BusinessException();
-			//TODO : CodesResultatDAL
-			//businessException.ajouterErreur(CodesResultatDAL.SUPPRESSION_LISTE_ERREUR);
-			throw businessException;
-		}
-		
-	}
-
-	@Override
-	public List<Personne> selectAll() throws BusinessException {
-		List<Personne> personnes = new ArrayList<Personne>();
+	public List<Table> selectAll() throws BusinessException {
+		List<Table> tables = new ArrayList<Table>();
 		try(Connection cnx = ConnectionProvider.getConnection())
 		{
 			PreparedStatement pstmt = cnx.prepareStatement(SELECT_ALL);
 			ResultSet rs = pstmt.executeQuery();
 			while(rs.next())
 			{
-				personnes.add(map(rs));
+				tables.add(map(rs));
 			}
 		}
 		catch(Exception e)
@@ -101,12 +43,12 @@ public class TableDAOJdbcImpl implements PersonneDAO {
 			//businessException.ajouterErreur(CodesResultatDAL.LECTURE_LISTES_ECHEC);
 			throw businessException;
 		}
-		return personnes;
+		return tables;
 	}
 
 	@Override
-	public Personne selectById(int id) throws BusinessException {
-		Personne result = null;
+	public Table selectById(int id) throws BusinessException {
+		Table result = null;
 		try(Connection cnx = ConnectionProvider.getConnection())
 		{
 			PreparedStatement pstmt = cnx.prepareStatement(SELECT_BY_ID);
@@ -135,8 +77,8 @@ public class TableDAOJdbcImpl implements PersonneDAO {
 	}
 	
 	@Override
-	public void update(Personne personne) throws BusinessException {
-		if(personne==null)
+	public void update(Table table) throws BusinessException {
+		if(table==null)
 		{
 			BusinessException businessException = new BusinessException();
 			//TODO : CodesResultatDAL
@@ -146,14 +88,10 @@ public class TableDAOJdbcImpl implements PersonneDAO {
 		
 		try(Connection cnx = ConnectionProvider.getConnection())
 		{
-			PreparedStatement pstmt = cnx.prepareStatement(UPDATE_PERSONNE);			
-			pstmt.setString(1, personne.getNom());
-			pstmt.setString(2, personne.getPrenom());
-			pstmt.setString(3, personne.getEmail());
-			pstmt.setString(4, personne.getMdp());
-			pstmt.setString(5, personne.getUriAvatar());
-			pstmt.setInt(6, personne.getRole().getId());
-			pstmt.setInt(7, personne.getId());
+			PreparedStatement pstmt = cnx.prepareStatement(UPDATE_TABLE);			
+			pstmt.setInt(1, table.getReservationId());
+			pstmt.setInt(2, table.getEtatId().getId());
+			pstmt.setInt(3, table.getIdTable());
 			pstmt.executeUpdate();
 		}
 		catch(Exception e)
@@ -170,23 +108,41 @@ public class TableDAOJdbcImpl implements PersonneDAO {
 	private Table map(ResultSet rs) throws SQLException {
 		
 		int id = rs.getInt("id");
-		
-		Reservation reservation = new Reservation();
+		int reservationId = rs.getInt("reservation_id");
 		
 		Restaurant restaurant = new Restaurant();
+		int idResto = rs.getInt("id");
+		String localisation = rs.getString("localisation");
+		int nbreTable = rs.getInt("nbre_table");
+		String uriResto = rs.getString("uri_resto");
+		Double localisationX = rs.getDouble("localisation_Y");
+		Double localisationY = rs.getDouble("localisation_Y");
+		restaurant.setId(idResto);
+		restaurant.setLocalisation(localisation);
+		restaurant.setNbretable(nbreTable);
+		restaurant.setUriResto(uriResto);
+		restaurant.setLocalisationX(localisationX);
+		restaurant.setLocalisationY(localisationY);
 		
 		Etat etat = new Etat();
 		int etatId = rs.getInt("etat_id");
 		String etatCouleur = rs.getString("etat_couleur");
-		String etatEtat = rs.getString("etat_etat");
-		
+		String etatEtat = rs.getString("etat_etat");		
 		etat.setId(etatId);
 		etat.setCouleur(etatCouleur);
 		etat.setEtat(etatEtat);
 		
-		Table table = new Table(id, reservation, restaurant, etat);
-		
-		return table;
+		return new Table(id, reservationId, etat, restaurant);
+	}
+
+	@Override
+	public void insert(Table table) throws BusinessException {
+	
+	}
+
+	@Override
+	public void delete(int id) throws BusinessException {
+
 	}
 }
 

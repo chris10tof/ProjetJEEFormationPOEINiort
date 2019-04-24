@@ -12,14 +12,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import fr.eni.ProjetJEE.BusinessException;
-import fr.eni.ProjetJEE.bo.Role;
+import fr.eni.ProjetJEE.bo.Plat;
 import fr.eni.ProjetJEE.dal.DAOFactory;
 
 /**
  * Servlet implementation class ListeRole
  */
-@WebServlet("/ListeRole")
-public class ListeRole extends HttpServlet {
+@WebServlet("/ListePlat")
+public class ListePlat extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {		
@@ -42,11 +42,13 @@ public class ListeRole extends HttpServlet {
 	
 	protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, BusinessException, SQLException {
 		RequestDispatcher dispatcher = null;
-		List<Role> listeRoles = null;
+		List<Plat> listePlats = null;
 		
-		listeRoles = DAOFactory.getRoleDAO().selectAll();
-		request.getSession().setAttribute("listeRoles", listeRoles);			
-		dispatcher = request.getRequestDispatcher("/WEB-INF/listeRoles.jsp"); 
-		dispatcher.forward(request, response);		
+		listePlats = DAOFactory.getPlatDAO().selectAll();
+		request.getSession().setAttribute("listePlats", listePlats);			
+		dispatcher = request.getRequestDispatcher("/WEB-INF/listePlats.jsp"); 
+		dispatcher.forward(request, response);
+		
 	}
+
 }

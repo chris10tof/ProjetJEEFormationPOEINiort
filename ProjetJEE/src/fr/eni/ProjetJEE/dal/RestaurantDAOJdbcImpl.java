@@ -13,14 +13,10 @@ import fr.eni.ProjetJEE.dal.dao.RestaurantDAO;
 
 public class RestaurantDAOJdbcImpl implements RestaurantDAO {
 
-	private static final String SELECT_ALL = "SELECT * from Restaurant;";
-	
-	private static final String SELECT_BY_ID =	"SELECT * FROM Restaurant WHERE id=?;";
-	
+	private static final String SELECT_ALL = "SELECT * from Restaurant;";	
+	private static final String SELECT_BY_ID =	"SELECT * FROM Restaurant WHERE id=?;";	
 	private static final String INSERT_RESTAURANT = "INSERT INTO RESTAURANT(localisation,nbre_table,uri_resto,localisation_x,localisation_y) VALUES(?,?,?,?,?);";
-
-	private static final String DELETE_RESTAURANT = "DELETE FROM Restaurant WHERE id=?";
-	
+	private static final String DELETE_RESTAURANT = "DELETE FROM Restaurant WHERE id=?";	
 	private static final String UPDATE_RESTAURANT = "UPDATE Restaurant set localisation=?, nbre_table=?, uri_resto=?, localisation_x=?, localisation_y=? WHERE id=?";
 	
 	@Override
