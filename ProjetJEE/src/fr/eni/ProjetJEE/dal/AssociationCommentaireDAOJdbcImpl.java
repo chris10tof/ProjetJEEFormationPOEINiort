@@ -57,7 +57,7 @@ public class AssociationCommentaireDAOJdbcImpl implements AssociationCommentaire
 			pstmt.setInt(1, associationCommentaire.getPersonneId().getId());
 			pstmt.setInt(2, associationCommentaire.getPlatId().getId());
 			pstmt.setInt(3, associationCommentaire.getRestaurantId().getId());
-			pstmt.setInt(3, associationCommentaire.getCommentaireId().getId());
+			pstmt.setInt(4, associationCommentaire.getCommentaireId().getId());
 			pstmt.executeUpdate();
 			
 			ResultSet rs = pstmt.getGeneratedKeys();

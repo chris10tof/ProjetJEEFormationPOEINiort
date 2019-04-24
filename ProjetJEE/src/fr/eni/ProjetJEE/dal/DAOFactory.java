@@ -1,5 +1,6 @@
 package fr.eni.ProjetJEE.dal;
 
+import fr.eni.ProjetJEE.bo.AssociationCommentaire;
 import fr.eni.ProjetJEE.dal.dao.CategorieDAO;
 import fr.eni.ProjetJEE.dal.dao.CommandeDAO;
 import fr.eni.ProjetJEE.dal.dao.CommentaireDAO;
@@ -14,8 +15,8 @@ import fr.eni.ProjetJEE.dal.dao.TableDAO;
 
 public abstract class DAOFactory {
 
-	public static AssociationCommenataireDAO getAssociationCommenataireDAO() {
-		return new AssociationCommenataireDAOJdbcImpl();
+	public static AssociationCommentaire getAssociationCommenataireDAO() {
+		return new AssociationCommentaire();
 	}
 	
 	public static CategorieDAO getCategorieDAO() {
