@@ -19,9 +19,9 @@ import fr.eni.ProjetJEE.dal.dao.TableDAO;
 
 public class TableDAOJdbcImpl implements TableDAO {
 
-	private static final String SELECT_ALL = "SELECT t.id, t.etat_id,t.restaurant_id,e.id,e.couleur,e.etat,r.id,r.localisation,r.nbre_table,r.uri_resto,r.localisation_x,r.localisation_y FROM [Table] t, Etat e, Restaurant r WHERE t.etat_id=e.id AND t.restaurant_id=r.id;";	
-	private static final String SELECT_BY_ID =	"SELECT t.id, t.etat_id,t.restaurant_id,e.id,e.couleur,e.etat,r.id,r.localisation,r.nbre_table,r.uri_resto,r.localisation_x,r.localisation_y FROM [Table] t, Etat e, Restaurant r WHERE t.etat_id=e.id AND t.restaurant_id=r.id AND t.id=?;";		
-	private static final String UPDATE_TABLE = "UPDATE Table set reservation_id=?, etat_id=? WHERE id=?";
+	private static final String SELECT_ALL = "SELECT t.id as id_table, t.etat_id,t.restaurant_id,e.id,e.couleur as etat_couleur,e.etat as etat_etat,r.id,r.localisation,r.nbre_table,r.uri_resto,r.localisation_x,r.localisation_y FROM [Table] t, Etat e, Restaurant r WHERE t.etat_id=e.id AND t.restaurant_id=r.id;";	
+	private static final String SELECT_BY_ID =	"SELECT t.id, t.etat_id,t.restaurant_id,e.id,e.couleur as etat_couleur,e.etat as etat_etat,r.id,r.localisation,r.nbre_table,r.uri_resto,r.localisation_x,r.localisation_y FROM [Table] t, Etat e, Restaurant r WHERE t.etat_id=e.id AND t.restaurant_id=r.id AND t.id=?;";		
+	private static final String UPDATE_TABLE = "UPDATE Table set etat_id=? WHERE id=?";
 
 	@Override
 	public List<Table> selectAll() throws BusinessException {
@@ -89,9 +89,8 @@ public class TableDAOJdbcImpl implements TableDAO {
 		try(Connection cnx = ConnectionProvider.getConnection())
 		{
 			PreparedStatement pstmt = cnx.prepareStatement(UPDATE_TABLE);			
-			pstmt.setInt(1, table.getReservationId());
-			pstmt.setInt(2, table.getEtatId().getId());
-			pstmt.setInt(3, table.getIdTable());
+			pstmt.setInt(1, table.getEtatId().getId());
+			pstmt.setInt(2, table.getIdTable());
 			pstmt.executeUpdate();
 		}
 		catch(Exception e)
@@ -107,8 +106,7 @@ public class TableDAOJdbcImpl implements TableDAO {
 
 	private Table map(ResultSet rs) throws SQLException {
 		
-		int id = rs.getInt("id");
-		int reservationId = rs.getInt("reservation_id");
+		int id = rs.getInt("id_table");
 		
 		Restaurant restaurant = new Restaurant();
 		int idResto = rs.getInt("id");
@@ -132,7 +130,7 @@ public class TableDAOJdbcImpl implements TableDAO {
 		etat.setCouleur(etatCouleur);
 		etat.setEtat(etatEtat);
 		
-		return new Table(id, reservationId, etat, restaurant);
+		return new Table(id, etat, restaurant);
 	}
 
 	@Override

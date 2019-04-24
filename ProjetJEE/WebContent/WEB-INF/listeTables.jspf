@@ -1,0 +1,14 @@
+
+<%@ page import="fr.eni.ProjetJEE.bo.*, java.util.*, java.text.*"%>
+<div id="listeTable">
+	<%
+		ArrayList<Table> listeTables = (ArrayList<Table>)request.getSession().getAttribute("listeTables");
+	 	for(Table f : listeTables) {
+	%>
+	
+	<div class="table">
+		<p>Id = <%=f.getIdTable() %> Etat = <%= f.getEtatId().getEtat() %> Couleur = <%= f.getEtatId().getCouleur() %> Restaurant = <%= f.getRestaurantId().getLocalisation() %></p>
+	</div>
+	<br />
+	<% } %>
+</div>

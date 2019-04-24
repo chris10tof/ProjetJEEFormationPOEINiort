@@ -3,7 +3,6 @@ package fr.eni.ProjetJEE.bo;
 public class Table {
 	
 	private int idTable;
-	private int reservationId;
 	private Etat etatId;
 	private Restaurant restaurantId;	
 	
@@ -11,17 +10,15 @@ public class Table {
 		super();
 	}
 	
-	public Table(int reservationId, Etat etatId, Restaurant restaurantId) {
+	public Table(Etat etatId, Restaurant restaurantId) {
 		super();
-		this.reservationId = reservationId;
 		this.etatId = etatId;
 		this.restaurantId = restaurantId;
 	}
 
-	public Table(int idTable, int reservationId, Etat etatId, Restaurant restaurantId) {
+	public Table(int idTable, Etat etatId, Restaurant restaurantId) {
 		super();
 		this.idTable = idTable;
-		this.reservationId = reservationId;
 		this.etatId = etatId;
 		this.restaurantId = restaurantId;
 	}
@@ -32,14 +29,6 @@ public class Table {
 
 	public void setIdTable(int idTable) {
 		this.idTable = idTable;
-	}
-
-	public int getReservationId() {
-		return reservationId;
-	}
-
-	public void setReservationId(int reservationId) {
-		this.reservationId = reservationId;
 	}
 
 	public Etat getEtatId() {
