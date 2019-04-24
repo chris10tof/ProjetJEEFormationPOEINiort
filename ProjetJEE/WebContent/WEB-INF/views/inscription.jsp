@@ -2,6 +2,9 @@
     pageEncoding="UTF-8"%>
 
 <!DOCTYPE html>
+<head>
+	<link media="all" rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>./css/style.css" />
+</head>
 <html>
 
 <!-- Inclusion du head -->

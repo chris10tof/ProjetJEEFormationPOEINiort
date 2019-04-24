@@ -19,8 +19,16 @@ import fr.eni.ProjetJEE.dal.dao.TableDAO;
 
 public class TableDAOJdbcImpl implements TableDAO {
 
-	private static final String SELECT_ALL = "SELECT t.id as id_table, t.etat_id,t.restaurant_id,e.id,e.couleur as etat_couleur,e.etat as etat_etat,r.id,r.localisation,r.nbre_table,r.uri_resto,r.localisation_x,r.localisation_y FROM [Table] t, Etat e, Restaurant r WHERE t.etat_id=e.id AND t.restaurant_id=r.id;";	
-	private static final String SELECT_BY_ID =	"SELECT t.id, t.etat_id,t.restaurant_id,e.id,e.couleur as etat_couleur,e.etat as etat_etat,r.id,r.localisation,r.nbre_table,r.uri_resto,r.localisation_x,r.localisation_y FROM [Table] t, Etat e, Restaurant r WHERE t.etat_id=e.id AND t.restaurant_id=r.id AND t.id=?;";		
+	private static final String SELECT_ALL = "SELECT t.id as id_table, t.etat_id,t.restaurant_id,"
+						+ "e.id,e.couleur as etat_couleur,e.etat as etat_etat,"
+						+ "r.id FROM [Table] t, Etat e, Restaurant r "
+						+ "WHERE t.etat_id=e.id "
+						+ "AND t.restaurant_id=r.id;";	
+	private static final String SELECT_BY_ID =	"SELECT t.id as id_table, t.etat_id,t.restaurant_id,\"\r\n" + 
+			"						+ \"e.id,e.couleur as etat_couleur,e.etat as etat_etat,\"\r\n" + 
+			"						+ \"r.id FROM [Table] t, Etat e, Restaurant r \"\r\n" + 
+			"						+ \"WHERE t.etat_id=e.id \"\r\n" + 
+			"						+ \"AND t.restaurant_id=r.id AND t.id=?;";		
 	private static final String UPDATE_TABLE = "UPDATE Table set etat_id=? WHERE id=?";
 
 	@Override
@@ -101,8 +109,7 @@ public class TableDAOJdbcImpl implements TableDAO {
 			//businessException.ajouterErreur(CodesResultatDAL.INSERT_OBJET_ECHEC);
 			throw businessException;
 		}
-	}
-	
+	}	
 
 	private Table map(ResultSet rs) throws SQLException {
 		
@@ -110,17 +117,7 @@ public class TableDAOJdbcImpl implements TableDAO {
 		
 		Restaurant restaurant = new Restaurant();
 		int idResto = rs.getInt("id");
-		String localisation = rs.getString("localisation");
-		int nbreTable = rs.getInt("nbre_table");
-		String uriResto = rs.getString("uri_resto");
-		Double localisationX = rs.getDouble("localisation_Y");
-		Double localisationY = rs.getDouble("localisation_Y");
 		restaurant.setId(idResto);
-		restaurant.setLocalisation(localisation);
-		restaurant.setNbretable(nbreTable);
-		restaurant.setUriResto(uriResto);
-		restaurant.setLocalisationX(localisationX);
-		restaurant.setLocalisationY(localisationY);
 		
 		Etat etat = new Etat();
 		int etatId = rs.getInt("etat_id");

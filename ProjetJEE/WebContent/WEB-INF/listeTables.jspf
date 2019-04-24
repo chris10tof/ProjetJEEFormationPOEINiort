@@ -7,7 +7,7 @@
 	%>
 	
 	<div class="table">
-		<p>Id = <%=f.getIdTable() %> Etat = <%= f.getEtatId().getEtat() %> Couleur = <%= f.getEtatId().getCouleur() %> Restaurant = <%= f.getRestaurantId().getLocalisation() %></p>
+		<p>Id = <%=f.getIdTable() %> Etat = <%= f.getEtatId().getEtat() %> Couleur = <%= f.getEtatId().getCouleur() %></p>
 	</div>
 	<br />
 	<% } %>
