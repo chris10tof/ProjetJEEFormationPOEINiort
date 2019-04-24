@@ -1,9 +1,9 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="ISO-8859-1">
+<meta charset="UTF-8">
 <title>Page : nos plats</title>
 </head>
 <body>
@@ -22,17 +22,17 @@
 	
 	<nav>
 		<ul>
-		<!-- Quand on est pas connecté -->
+		<!-- Quand on est pas connectÃ© -->
 		  <li><a class="suivre" href="PageInscription.html"><span>Inscription</span></a></li>	
 		  
 		  <li><a class="suivre" href="PageConnexion.html"><span>Connexion</span></a></li>
 		  
-		<!-- Quand on est connecté -->
+		<!-- Quand on est connectÃ© -->
 		  <li><a class="pour_les_connectes" href="PageMonCompte.html"><span>Connexion</span></a></li>
 		  
 		  <li><a class="pour_les_connectes" href="Forum.html"><span>Forum</span></a></li>
 		  
-		<!-- Quand l'ADMIN est connecté -->
+		<!-- Quand l'ADMIN est connectÃ© -->
 		  <li><a class="pour_admin" href="PageAjoutPlat.html"><span>Connexion</span></a></li>  
 		</ul>
 	</nav>
@@ -42,11 +42,11 @@
 		<div id="carrousel_plats">
 			<figure>
 				<img src = "salade_automne_champignons_sautes.jpg" alt = "Notre salade Automne aux champignons sautes">
-				<img src = "salade_chevre_chaud.jpg" alt = "Notre salade Chèvre chaud">
-				<img src = "taboule_libanais.jpg" alt = "Notre taboulé libanais">
-				<img src = "chiktaye_morue_guadeloupe.jpg" alt = "Notre chiktaye à la morue de Guadeloupe">
-				<img src = "burger_avocat_bacon.jpg" alt = "Notre burger à l'avocat et au bacon">
-				<img src = "cake_banane_chocolat.jpg" alt = "Notre cake à la bananee et au chocolat">
+				<img src = "salade_chevre_chaud.jpg" alt = "Notre salade ChÃ¨vre chaud">
+				<img src = "taboule_libanais.jpg" alt = "Notre taboulÃ© libanais">
+				<img src = "chiktaye_morue_guadeloupe.jpg" alt = "Notre chiktaye Ã  la morue de Guadeloupe">
+				<img src = "burger_avocat_bacon.jpg" alt = "Notre burger Ã  l'avocat et au bacon">
+				<img src = "cake_banane_chocolat.jpg" alt = "Notre cake Ã  la bananee et au chocolat">
 				<img src = "tarte_tatin.jpg" alt = "Notre tarte tatin">
 			</figure>
 		</div>
@@ -54,7 +54,7 @@
 		
 	<footer>
 		<div>
-			<a class="accueil" href="PageAccueil.html"><span>Revenir à la page d'accueil</span></a>
+			<a class="accueil" href="PageAccueil.html"><span>Revenir Ã  la page d'accueil</span></a>
 		</div>
 	</footer>
 	

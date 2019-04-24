@@ -1,9 +1,9 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="ISO-8859-1">
+<meta charset="UTF-8">
 <title>Page de connexion</title>
 </head>
 
@@ -40,7 +40,7 @@
 	
 	<footer>
 		<div>
-			<a class="accueil" href="PageAccueil.html"><span>Revenir à la page d'accueil</span></a>
+			<a class="accueil" href="PageAccueil.html"><span>Revenir Ã  la page d'accueil</span></a>
 		</div>
 	</footer>
 	

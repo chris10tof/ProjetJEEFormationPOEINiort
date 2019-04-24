@@ -1,0 +1,58 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+
+<main>
+	<div id="listeResto">
+		<!-- PRESENTATION RESTAURANT DE RENNES -->
+		<section class="restaurant">
+			<h2>Site de Rennes</h2>
+			<!-- Photographie du restaurant de Rennes -->
+			<div>
+				<img src="${pageContext.servletContext.contextPath}/img/Image_restaurant_Rennes.jpg" alt="Photographie du restaurant 101 de Rennes" />
+			</div>
+
+			<!-- Description restaurant de Rennes -->
+			<p>Notre restaurant est composé de 15 tables</p>
+		</section>
+
+		<!-- PRESENTATION RESTAURANT DE NANTES -->
+		<section class="restaurant">
+			<h2>Site de Nantes</h2>
+			<!-- Photographie du restaurant de Nantes -->
+			<div>
+				<img src="${pageContext.servletContext.contextPath}/img/Image_restaurant_Nantes.jpg" alt="Photographie du restaurant 101 de Nantes" />
+			</div>
+
+			<!-- Description restaurant de Nantes -->
+			<p>Notre restaurant est composé de 10 tables</p>
+		</section>
+
+		<!-- PRESENTATION RESTAURANT DE BREST -->
+		<section class="restaurant">
+			<h2>Site de Brest</h2>
+			<!-- Photographie du restaurant de Brest -->
+			<div>
+				<img src="${pageContext.servletContext.contextPath}/img/Image_restaurant_Brest.jpg" alt="Photographie du restaurant 101 de Brest" />
+			</div>
+
+			<!-- Description restaurant de Rennes -->
+			<p>Notre restaurant ouvrira prochainement</p>
+		</section>
+	</div>
+
+	<div id="maps">
+		<div class="maps_resto">
+			<iframe width="550px" height="350px" src="https://maps.google.com/maps?width=1680&amp;height=800&amp;hl=en&amp;q=Rennes%2C%20France+(Titre)&amp;ie=UTF8&amp;t=&amp;z=10&amp;iwloc=B&amp;output=embed" frameborder="0" scrolling="no" marginheight="0" marginwidth="0"></iframe>
+		</div>
+		<div class="maps_resto">
+			<iframe width="550px" height="350px" src="https://maps.google.com/maps?width=1680&amp;height=800&amp;hl=en&amp;q=Nantes%2C%20France+(Titre)&amp;ie=UTF8&amp;t=&amp;z=10&amp;iwloc=B&amp;output=embed" frameborder="0" scrolling="no" marginheight="0" marginwidth="0"></iframe>
+		</div>
+		<div class="maps_resto">
+			<iframe width="550px" height="350px" src="https://maps.google.com/maps?width=1680&amp;height=800&amp;hl=en&amp;q=Brest%2C%20France+(Titre)&amp;ie=UTF8&amp;t=&amp;z=10&amp;iwloc=B&amp;output=embed" frameborder="0" scrolling="no" marginheight="0" marginwidth="0"></iframe>
+			<style>#gmap_canvas img{max-width:none!important;background:none!important}</style>
+		</div>
+		<footer style="position: absolute;width: 80%;bottom: 10px;left: 0;right: 0;margin-left: auto;margin-right: auto;color: #000;text-align: center;">
+			<small style="line-height: 1.8;font-size: 2px;background: #fff;">Powered by <a href="https://embedgooglemaps.com/it/">https://embedgooglemaps.com/it/</a> & <a href="http://www.stedentrippers.nl/berlijn.html">hier</a></small>
+		</footer>
+	</div>
+</main>

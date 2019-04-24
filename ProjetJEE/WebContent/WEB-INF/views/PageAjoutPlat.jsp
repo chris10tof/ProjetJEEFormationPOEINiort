@@ -1,9 +1,9 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="ISO-8859-1">
+<meta charset="UTF-8">
 <title>Ajout d'un plat</title>
 </head>
 
@@ -27,7 +27,7 @@
 		    </div>
 		    
 		    <div>
-		        <label>Liste des ingrédients présents dans le plat :</label>
+		        <label>Liste des ingrÃ©dients prÃ©sents dans le plat :</label>
 		        <input type="text">
 		    </div>
 		    
