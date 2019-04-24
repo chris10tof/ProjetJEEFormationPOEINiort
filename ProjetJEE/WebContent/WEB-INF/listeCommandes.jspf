@@ -1,0 +1,17 @@
+
+<%@ page import="fr.eni.ProjetJEE.bo.*, java.util.*, java.text.*"%>
+<div id="listeCommande">
+	<%
+		ArrayList<Commande> listeCommandes = (ArrayList<Commande>)request.getSession().getAttribute("listeCommandes");
+	 	for(Commande f : listeCommandes) {
+	%>
+	
+	<div class="commande">
+		<p>Numéro de la commande = <%=f.getIdCommande() %></p>
+		<p>Numéro de table = <%= f.getTableId().getIdTable() %></p>
+		<p>Nom du plat = <%= f.getPlatId().getNom() %></p>
+		<p>Nombre de plats = <%= f.getNbrePlat() %></p>
+	</div>
+	<br />
+	<% } %>
+</div>

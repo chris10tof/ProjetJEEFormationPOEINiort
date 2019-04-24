@@ -18,14 +18,14 @@ public class CommandeDAOJdbcImpl implements CommandeDAO {
 
 	private static final String SELECT_ALL = "SELECT c.id,\r\n" + 
 			"		t.id as id_table,\r\n" + 
-			"		pl.nom,\r\n" + 
-			"		c.nbre_plat as nomPlat\r\n" + 
+			"		pl.nom as nomPlat,\r\n" + 
+			"		c.nbre_plat as nbreDePlat\r\n" + 
 			"		FROM [Commande] c,[Plat] pl, [Table] t\r\n" + 
 			"		WHERE c.table_id=t.id AND c.plat_Id=pl.id;";	
 	private static final String SELECT_BY_ID =	"SELECT c.id,\r\n" + 
 			"		t.id as id_table,\r\n" + 
 			"		pl.nom as nomPlat,\r\n" + 
-			"		c.nbre_plat\r\n" + 
+			"		c.nbre_plat as nbreDePlat\r\n" + 
 			"		FROM [Commande] c,[Plat] pl, [Table] t\r\n" + 
 			"		WHERE c.table_id=t.id AND c.plat_Id=pl.id AND c.id=?;";	
 	private static final String INSERT_COMMANDE = "INSERT INTO Commande(table_id,plat_id,nbre_plat) VALUES(?,?,?);";
@@ -145,9 +145,9 @@ public class CommandeDAOJdbcImpl implements CommandeDAO {
 		String nomPlat = rs.getString("nomPLat");
 		platId.setNom(nomPlat);
 		
-		Double nbrePlat = rs.getDouble("nbre_plat");
+		Double nbrePlat = rs.getDouble("nbreDePlat");
 		
-		return new Commande(tableId,platId,nbrePlat);
+		return new Commande(id,tableId,platId,nbrePlat);
 	}
 
 	@Override
