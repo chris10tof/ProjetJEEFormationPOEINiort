@@ -59,8 +59,9 @@ h2, p {
  	position: relative;
 }
 
-#maps div
+#maps div {
     width: 550px;
+}
 
 footer {
 	background-color: antiquewhite;

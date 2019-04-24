@@ -1,0 +1,21 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+
+
+<main>
+	<!-- Formulaire de connexion -->
+	<form action="" method="post">
+	    <div>
+	        <label>Adresse mail :</label>
+	        <input type="email">
+	    </div>
+	    <div>
+	        <label>Mot de passe :</label>
+	        <input type="text">
+	    </div>
+
+	    <div class="button">
+      	  <button type="submit">Valider</button>
+    	</div>
+	</form>
+</main>

@@ -13,7 +13,7 @@
 	<%@ include file="./fragments/header.jspf"%>
 
 	<!-- Inclusion du header -->
-	<%@ include file="./fragments/main/mainAccueil.jspf"%>
+	<%@ include file="./fragments/main/mainForum.jspf"%>
 
 	<!-- Inclusion du header -->
 	<%@ include file="./fragments/footer.jspf"%>

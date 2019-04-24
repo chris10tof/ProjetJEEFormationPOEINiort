@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-
 <!DOCTYPE html>
 <html>
 
@@ -13,11 +12,10 @@
 	<%@ include file="./fragments/header.jspf"%>
 
 	<!-- Inclusion du header -->
-	<%@ include file="./fragments/main/mainAccueil.jspf"%>
+	<%@ include file="./fragments/main/mainAjouterPlat.jspf"%>
 
 	<!-- Inclusion du header -->
 	<%@ include file="./fragments/footer.jspf"%>
 
 </body>
-
 </html>
