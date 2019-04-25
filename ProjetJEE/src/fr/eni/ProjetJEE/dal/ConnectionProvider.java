@@ -10,12 +10,11 @@ import javax.sql.DataSource;
 
 abstract class ConnectionProvider {
 	private static DataSource dataSource;
-	
+
 	/**
 	 * Au chargement de la classe, la DataSource est recherchée dans l'arbre JNDI
 	 */
-	static
-	{
+	static {
 		Context context;
 		try {
 			context = new InitialContext();
@@ -25,15 +24,14 @@ abstract class ConnectionProvider {
 			throw new RuntimeException("Impossible d'acceder a la base de donnees");
 		}
 	}
-	
+
 	/**
 	 * Cette méthode retourne une connection opérationnelle issue du pool de connexion
-	 * vers la base de données. 
+	 * vers la base de données.
 	 * @return
 	 * @throws SQLException
 	 */
-	public static Connection getConnection() throws SQLException
-	{
+	public static Connection getConnection() throws SQLException {
 		return ConnectionProvider.dataSource.getConnection();
 	}
 }

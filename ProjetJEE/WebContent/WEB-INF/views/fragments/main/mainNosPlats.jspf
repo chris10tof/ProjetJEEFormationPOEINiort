@@ -9,7 +9,7 @@
 				<c:when test="${plat.id==1}">
 					<div class="item active">
 						<li class="list-group-item">
-							<div>
+							<div class="left">
 					            <h3>${plat.nom}</h3><br>
 					            <c:set var = "description" value = "${plat.description}"/>
 					        	<c:set var = "description" value = "${fn:replace(description,'#','<br>')}"/>
@@ -19,7 +19,7 @@
 					        	<c:set var = "recette" value = "${fn:replace(recette,'#','<br>')}"/>
 								Recette : ${(recette)}<br>
 							</div>
-							<div>
+							<div class="right">
 		    					<img src = "${pageContext.servletContext.contextPath}${plat.uriImage}" alt = "Notre salade Automne aux champignons sautes">
 							</div>
 					    </li>
@@ -28,7 +28,7 @@
 				<c:otherwise>
 					<div class="item">
 						<li class="list-group-item">
-							<div>
+							<div class="left">
 					            <h3>${plat.nom}</h3><br>
 					            <c:set var = "description" value = "${plat.description}"/>
 					        	<c:set var = "description" value = "${fn:replace(description,'#','<br>')}"/>
@@ -38,7 +38,7 @@
 					        	<c:set var = "recette" value = "${fn:replace(recette,'#','<br>')}"/>
 								Recette : ${(recette)}<br>
 							</div>
-							<div>
+							<div class="right">
 	    						<img src = "${pageContext.servletContext.contextPath}${plat.uriImage}" alt = "Notre salade Automne aux champignons sautes">
 							</div>
 					    </li>
