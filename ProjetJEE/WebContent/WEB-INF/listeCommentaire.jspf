@@ -1,0 +1,18 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<div id="listeCommentaireParPlat">
+	<div>
+	<c:forEach var="commentaires" items="${listeCommentaireParPlat}">
+		<li class="list-group-item">
+			${commentaires.platId.nom}<br>
+			${commentaires.personneId.nom}
+			${commentaires.personneId.prenom}<br>
+			${commentaires.restaurantId.localisation}<br>
+			${commentaires.commentaireId.contenu}<br>
+			${commentaires.commentaireId.date}<br>
+			${commentaires.commentaireId.note}<br>	
+		</li>
+	</c:forEach>
+	</div>
+</div>

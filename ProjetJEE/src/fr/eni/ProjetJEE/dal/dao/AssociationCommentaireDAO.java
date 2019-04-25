@@ -11,4 +11,5 @@ public interface AssociationCommentaireDAO {
 	public void update(AssociationCommentaire AssoCom) throws BusinessException;
 	public List<AssociationCommentaire> selectAll() throws BusinessException;
 	public AssociationCommentaire selectById(int id) throws BusinessException;
+	List<AssociationCommentaire> selectAllById(int id) throws BusinessException;
 }

@@ -38,6 +38,16 @@ public class AssociationCommentaireDAOJdbcImpl implements AssociationCommentaire
 			"		AND a.plat_id=pl.id \r\n" + 
 			"		AND a.restaurant_id=r.id \r\n" + 
 			"		AND a.commentaire_id=c.id AND a.id=?;";	
+	private static final String SELECT_ALL_BY_ID_PLAT = "SELECT a.id,\r\n" + 
+			"		p.nom, p.prenom,\r\n" + 
+			"		pl.nom as nomPlat,\r\n" + 
+			"		r.localisation,\r\n" + 
+			"		c.contenu, c.date, c.note\r\n" + 
+			"		FROM [AssociationCommentaire] a, [Personne] p, [Plat] pl, [Restaurant] r, [Commentaire] c\r\n" + 
+			"		WHERE a.personne_id=p.id \r\n" + 
+			"		AND a.plat_id=pl.id \r\n" + 
+			"		AND a.restaurant_id=r.id \r\n" + 
+			"		AND a.commentaire_id=c.id AND pl.id=?;";	
 	private static final String INSERT_ASSOCOMM = "INSERT INTO AssociationCommentaire(personne_id,plat_id,restaurant_id;commentaire_id) VALUES(?,?,?,?);";
 	private static final String DELETE_ASSOCOMM = "DELETE FROM AssociationCommentaire WHERE id=?";	
 	
@@ -142,6 +152,31 @@ public class AssociationCommentaireDAOJdbcImpl implements AssociationCommentaire
 		}
 		return result;
 	}
+	
+	@Override
+	public List<AssociationCommentaire> selectAllById(int id) throws BusinessException {
+		List<AssociationCommentaire> associationCommentaire = new ArrayList<AssociationCommentaire>();
+		try(Connection cnx = ConnectionProvider.getConnection())
+		{
+			PreparedStatement pstmt = cnx.prepareStatement(SELECT_ALL_BY_ID_PLAT);
+			pstmt.setInt(1, id);
+			ResultSet rs = pstmt.executeQuery();
+			while(rs.next())
+			{
+				associationCommentaire.add(map(rs));
+			}
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+			BusinessException businessException = new BusinessException();
+			//TODO : CodesResultatDAL
+			//businessException.ajouterErreur(CodesResultatDAL.LECTURE_LISTES_ECHEC);
+			throw businessException;
+		}
+		return associationCommentaire;
+	}
+	
 	
 	private AssociationCommentaire map(ResultSet rs) throws SQLException {
 		
