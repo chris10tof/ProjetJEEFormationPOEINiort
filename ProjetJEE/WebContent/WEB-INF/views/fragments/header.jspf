@@ -7,17 +7,15 @@
 
 	<nav>
 		<ul>
-			<!-- Quand on est pas connecté -->
-			<li><a class="nos_plats" href="PageNosPlats.html"><span>Nos plats</span></a></li>
-			<li><a class="suivre" href="PageInscription.html"><span>Inscription</span></a></li>
-			<li><a class="suivre" href="PageConnexion.html"><span>Connexion</span></a></li>
 
-			<!-- Quand on est connecté -->
-			<li><a class="pour_les_connectes" href="PageMonCompte.html"><span>Connexion</span></a></li>
-			<li><a class="pour_les_connectes" href="Forum.html"><span>Forum</span></a></li>
+			<li><a href="<%=request.getContextPath()%>/Accueil">Accueil</a></li>
+			<li><a href="<%=request.getContextPath()%>/NosPlats">Nos Plats</a></li>
+			<li><a href="<%=request.getContextPath()%>/Connexion">Connexion</a></li>		<!-- Quand on n'est pas connecté -->
+			<li><a href="<%=request.getContextPath()%>/Inscription">Inscription</a></li>	<!-- Quand on n'est pas connecté -->
+			<li><a href="<%=request.getContextPath()%>/MonCompte">Mon Compte</a></li>		<!-- Quand on est connecté -->
+			<li><a href="<%=request.getContextPath()%>/AjouterPlat">Ajouter un Plat</a></li><!-- Quand l'ADMIN est connecté -->
+			<li><a href="<%=request.getContextPath()%>/Forum">Forum</a></li>				<!-- Quand on est connecté -->
 
-			<!-- Quand l'ADMIN est connecté -->
-			<li><a class="pour_admin" href="PageAjoutPlat.html"><span>Connexion</span></a></li>  
 		</ul>
 	</nav>
 </header>

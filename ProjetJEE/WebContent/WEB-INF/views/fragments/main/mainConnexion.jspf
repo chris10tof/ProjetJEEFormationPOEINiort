@@ -7,11 +7,11 @@
 	<form action="" method="post">
 	    <div>
 	        <label>Adresse mail :</label>
-	        <input type="email">
+	        <input type="email" name="email">
 	    </div>
 	    <div>
 	        <label>Mot de passe :</label>
-	        <input type="text">
+	        <input type="text" name="mdp">
 	    </div>
 
 	    <div class="button">
