@@ -13,7 +13,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import fr.eni.ProjetJEE.BusinessException;
 import fr.eni.ProjetJEE.bo.Commande;
-import fr.eni.ProjetJEE.bo.Personne;
 import fr.eni.ProjetJEE.dal.DAOFactory;
 
 /**

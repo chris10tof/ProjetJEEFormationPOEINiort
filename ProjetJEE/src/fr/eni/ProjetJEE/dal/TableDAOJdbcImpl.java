@@ -9,12 +9,8 @@ import java.util.List;
 
 import fr.eni.ProjetJEE.BusinessException;
 import fr.eni.ProjetJEE.bo.Etat;
-import fr.eni.ProjetJEE.bo.Personne;
-import fr.eni.ProjetJEE.bo.Reservation;
 import fr.eni.ProjetJEE.bo.Restaurant;
-import fr.eni.ProjetJEE.bo.Role;
 import fr.eni.ProjetJEE.bo.Table;
-import fr.eni.ProjetJEE.dal.dao.PersonneDAO;
 import fr.eni.ProjetJEE.dal.dao.TableDAO;
 
 public class TableDAOJdbcImpl implements TableDAO {

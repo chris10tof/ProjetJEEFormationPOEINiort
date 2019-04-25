@@ -169,7 +169,7 @@ public class AssociationCommentaireDAOJdbcImpl implements AssociationCommentaire
 		commentaireId.setDate(date);
 		commentaireId.setNote(note);
 
-		AssociationCommentaire associationCommentaire = new AssociationCommentaire(personneId, platId, restaurantId, commentaireId);
+		AssociationCommentaire associationCommentaire = new AssociationCommentaire(id,personneId, platId, restaurantId, commentaireId);
 		
 		return associationCommentaire;
 	}

@@ -8,7 +8,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import fr.eni.ProjetJEE.BusinessException;
-import fr.eni.ProjetJEE.bo.AssociationCommentaire;
 import fr.eni.ProjetJEE.bo.Commande;
 import fr.eni.ProjetJEE.bo.Plat;
 import fr.eni.ProjetJEE.bo.Table;

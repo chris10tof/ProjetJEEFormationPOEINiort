@@ -11,7 +11,6 @@ import fr.eni.ProjetJEE.BusinessException;
 import fr.eni.ProjetJEE.bo.Inscription;
 import fr.eni.ProjetJEE.bo.Personne;
 import fr.eni.ProjetJEE.bo.Restaurant;
-import fr.eni.ProjetJEE.bo.Role;
 import fr.eni.ProjetJEE.dal.dao.InscriptionDAO;
 
 public class InscriptionDAOJdbcImpl implements InscriptionDAO {
