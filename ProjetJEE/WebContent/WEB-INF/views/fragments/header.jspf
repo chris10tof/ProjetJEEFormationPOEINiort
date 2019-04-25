@@ -10,7 +10,6 @@
     		<ul class="nav navbar-nav">
 				<li><a href="<%=request.getContextPath()%>/Accueil">Accueil</a></li>
 				<li><a href="<%=request.getContextPath()%>/NosPlats">Nos Plats</a></li>
-				<li><a href="<%=request.getContextPath()%>/Connexion">Connexion</a></li>		<!-- Quand on n'est pas connecté -->
 				<li><a href="<%=request.getContextPath()%>/MonCompte">Mon Compte</a></li>		<!-- Quand on est connecté -->
 				<li><a href="<%=request.getContextPath()%>/AjouterPlat">Ajouter un Plat</a></li><!-- Quand l'ADMIN est connecté -->
 				<li><a href="<%=request.getContextPath()%>/Forum">Forum</a></li>				<!-- Quand on est connecté -->

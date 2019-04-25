@@ -1,5 +1,6 @@
 header,
-header > *, main {
+header>*,
+main {
 	width: fit-content;
 	margin: auto;
 }
@@ -105,5 +106,12 @@ textarea{
 
 ul .navbar-nav {
 	    /* flex-direction: row !important;
+}
+
+.left {
+	float: left;
+}
+.right {
+	float: right;
 }
 
