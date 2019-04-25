@@ -102,3 +102,15 @@ textarea{
 	min-width: 165px;
 	max-width: 165px;
 }
+
+ul .navbar-nav {
+	    /* flex-direction: row !important;
+}
+
+li.list-group-item > div:first-child {
+	float: left;
+}
+
+.list-group-item > div:last-child {
+	float: right;
+}

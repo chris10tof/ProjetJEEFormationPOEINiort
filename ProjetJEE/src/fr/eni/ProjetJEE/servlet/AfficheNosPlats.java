@@ -2,6 +2,8 @@ package fr.eni.ProjetJEE.servlet;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.List;
+
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -10,6 +12,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import fr.eni.ProjetJEE.BusinessException;
+import fr.eni.ProjetJEE.bo.Plat;
+import fr.eni.ProjetJEE.dal.DAOFactory;
+import fr.eni.ProjetJEE.dal.PlatDAOJdbcImpl;
 
 /**
  * Servlet implementation class ListeRole
@@ -37,8 +42,10 @@ public class AfficheNosPlats extends HttpServlet {
 	}
 
 	protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, BusinessException, SQLException {
+		List<Plat> listePlats = null;
 		RequestDispatcher dispatcher = null;
-
+		listePlats = DAOFactory.getPlatDAO().selectAll();
+		request.setAttribute("listePlats", listePlats);
 		dispatcher = request.getRequestDispatcher("/WEB-INF/views/nosPlats.jsp");
 		dispatcher.forward(request, response);
 	}
