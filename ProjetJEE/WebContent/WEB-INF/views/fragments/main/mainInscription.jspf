@@ -30,7 +30,7 @@
                 <br />
                 
                 <label for="commentaire">Comment avez-vous connu ce restaurant?<span class="requis">*</span></label>
-                <input type="text" name="commentaire" id="commentaire">
+                <textarea name="commentaire" id="commentaire"></textarea>
                 <br /> 
                 
 		    	<label>Wsh tu veux quel resto :</label>

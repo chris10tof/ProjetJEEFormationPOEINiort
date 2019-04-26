@@ -81,7 +81,7 @@ public class AfficheInscription extends HttpServlet {
 		} else {
 			
 		}
-		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/views/accueil.jsp");
+		RequestDispatcher dispatcher = request.getRequestDispatcher("/Accueil");
 		dispatcher.forward(request, response);
 	}
 
