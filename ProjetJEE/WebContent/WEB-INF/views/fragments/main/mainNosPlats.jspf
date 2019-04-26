@@ -44,10 +44,6 @@
 							<div>
 								<img src = "${pageContext.servletContext.contextPath}${plat.uriImage}" alt = "Notre salade Automne aux champignons sautes">
 	    						<a href="${pageContext.request.contextPath}/Commentaires?id=${plat.id}">Super lien</a>
-=======
-							<div class="right">
-	    						<img src = "${pageContext.servletContext.contextPath}${plat.uriImage}" alt = "Notre salade Automne aux champignons sautes">
-							</div>
 							</div>
 					    </li>
 					    </ul>
