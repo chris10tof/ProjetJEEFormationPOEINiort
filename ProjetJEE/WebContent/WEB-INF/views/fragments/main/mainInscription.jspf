@@ -1,47 +1,41 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<link media="all" rel="stylesheet" href="<%=request.getContextPath()%>/css/styleUser.css" type="text/css"/>
 
-<main class="main">
-	
-	<!-- Formulaire d'inscription -->
-	<form method="post" action="${pageContext.request.contextPath}/Inscription">
-            <fieldset>
-                <legend>Inscription</legend>
-                <p>Vous pouvez vous inscrire via ce formulaire.</p>
-
-				<label for="nom">Nom<span class="requis">*</span></label>
-                <input type="text" id="nom" name="nom" value="" size="20" maxlength="20" />
-                <br />
-                
-                <label for="prenom">Prénom<span class="requis">*</span></label>
-                <input type="text" id="prenom" name="prenom" value="" size="20" maxlength="20" />
-                <br />
-				
-                <label for="email">Adresse email <span class="requis">*</span></label>
-                <input type="text" id="email" name="email" value="" size="20" maxlength="60" />
-                <br />
-
-                <label for="mdp">Mot de passe <span class="requis">*</span></label>
-                <input type="password" id="mdp" name="mdp" value="" size="20" maxlength="20" />
-                <br />
-
-                <label for="confMdp">Confirmation du mot de passe <span class="requis">*</span></label>
-                <input type="password" id="confMdp" name="confMdp" value="" size="20" maxlength="20" />
-                <br />
-                
-                <label for="commentaire">Comment avez-vous connu ce restaurant?<span class="requis">*</span></label>
-                <textarea name="commentaire" id="commentaire"></textarea>
-                <br /> 
-                
-		    	<label>Wsh tu veux quel resto :</label>
-		    	<select name="restaurant">
+<div class="main">
+	<div class="signup-form">
+	    <form action="${pageContext.request.contextPath}/Inscription" method="post">
+			<h2>Inscription</h2>
+			<p class="hint-text">Créer votre compte.</p>
+	        <div class="form-group">
+				<div class="row">
+					<div class="col-xs-6"><input type="text" class="form-control" name="nom" placeholder="Nom" required="required"></div>
+					<div class="col-xs-6"><input type="text" class="form-control" name="prenom" placeholder="Prénom" required="required"></div>
+				</div>        	
+	        </div>
+	        <div class="form-group">
+	        	<input type="email" class="form-control" name="email" placeholder="Email" required="required">
+	        </div>
+			<div class="form-group">
+	            <input type="password" class="form-control" name="mdp" placeholder="Mot de passe" required="required">
+	        </div>
+			<div class="form-group">
+	            <input type="password" class="form-control" name="confMdp" placeholder="Confirmez votre mot de passe" required="required">
+	        </div>
+	        <div>
+		        <select name="restaurant">
 		    		<c:forEach var="resto" items="${listeRestaurants}">
-	        			<option value="${resto.id}@${resto.localisation}">${resto.localisation}</option>
-	        		</c:forEach>
-	   			</select><br>                 
-
-                <input type="submit" value="Inscription" class="sansLabel" />
-                <br />
-            </fieldset>
-        </form>
-</main>
+		       			<option value="${resto.id}@${resto.localisation}">${resto.localisation}</option>
+		       		</c:forEach>
+		  		</select>
+	  		</div>
+	        <div class="form-group">
+	            <textarea class="form-control" name="commentaire" placeholder="Dites-nous comment avez-vous connu notre restaurant" required="required"></textarea>
+	        </div>         
+			<div class="form-group">
+	            <button type="submit" class="btn btn-success btn-lg btn-block">Valider mon inscription</button>
+	        </div>
+	    </form>
+		<div class="text-center">Vous avez déjà un compte?? <a href="#">Connectez-vous ici!</a></div>
+	</div>
+</div>

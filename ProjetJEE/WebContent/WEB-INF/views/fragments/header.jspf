@@ -23,11 +23,11 @@
 			</ul>
 			<ul class="nav navbar-nav navbar-right">
 				<c:if test = "${sessionScope.mail == null}">
-	      			<li><a href="<%=request.getContextPath()%>/Inscription"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>		<!-- Quand on n'est pas connecté -->
-	      			<li><a href="<%=request.getContextPath()%>/Connexion"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>		<!-- Quand on n'est pas connecté -->
+	      			<li><a href="<%=request.getContextPath()%>/Inscription"><span class="glyphicon glyphicon-user"></span> S'inscrire</a></li>		<!-- Quand on n'est pas connecté -->
+	      			<li><a href="<%=request.getContextPath()%>/Connexion"><span class="glyphicon glyphicon-log-in"></span> Se connecter</a></li>		<!-- Quand on n'est pas connecté -->
 	      		</c:if>
 	      		<c:if test = "${sessionScope.mail != null}">
-	      			<li><a href="<%=request.getContextPath()%>/Logout"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>		<!-- Quand on est connecté -->
+	      			<li><a href="<%=request.getContextPath()%>/Logout"><span class="glyphicon glyphicon-log-out"></span> Se déconnecter</a></li>		<!-- Quand on est connecté -->
 				</c:if>
    			</ul>
 		</div>
