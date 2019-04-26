@@ -18,7 +18,7 @@ public class PersonneDAOJdbcImpl implements PersonneDAO {
 	
 	private static final String SELECT_BY_ID =	"SELECT p.id, p.Nom, Prenom, email, mdp, uri_avatar, r.id AS role_id, r.nom AS role_nom FROM Personne p, Role r WHERE p.role_id=r.id AND r.id=?;";
 	
-	private static final String INSERT_PERSONNE = "INSERT INTO Personne(nom, prenom, email, mdp, uri_avatar, role_id) VALUES(?,?,?,?,?,?,?);";
+	private static final String INSERT_PERSONNE = "INSERT INTO Personne(nom, prenom, email, mdp, uri_avatar, role_id) VALUES(?,?,?,?,?,?);";
 
 	private static final String DELETE_PERSONNE = "DELETE FROM Personne WHERE id=?";
 	

@@ -21,8 +21,7 @@ public class Restaurant {
 		this.localisationY = localisationY;
 	}
 
-	public Restaurant(int id, String localisation, int nbretable, String uriResto, double localisationX,
-			double localisationY) {
+	public Restaurant(int id, String localisation, int nbretable, String uriResto, double localisationX, double localisationY) {
 		super();
 		this.id = id;
 		this.localisation = localisation;
@@ -30,6 +29,12 @@ public class Restaurant {
 		this.uriResto = uriResto;
 		this.localisationX = localisationX;
 		this.localisationY = localisationY;
+	}
+	
+	public Restaurant(int id, String localisation) {
+		super();
+		this.id = id;
+		this.localisation = localisation;
 	}
 
 	public int getId() {

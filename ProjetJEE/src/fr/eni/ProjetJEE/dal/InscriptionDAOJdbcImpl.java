@@ -25,9 +25,9 @@ public class InscriptionDAOJdbcImpl implements InscriptionDAO {
 			"		ra.localisation\r\n" + 
 			"		FROM [Inscription] i, [Personne] p, [Restaurant] ra\r\n" + 
 			"		WHERE i.personne_id=p.id AND i.restaurant_id=ra.id AND i.id=?;";	
-	private static final String INSERT_INSCRIPTION = "INSERT INTO Inscription(commentaire,personne,restaurant) VALUES(?,?,?);";
+	private static final String INSERT_INSCRIPTION = "INSERT INTO Inscription(commentaire,personne_id,restaurant_id) VALUES(?,?,?);";
 	private static final String DELETE_INSCRIPTION = "DELETE FROM Inscription WHERE id=?";	
-	private static final String UPDATE_INSCRIPTION = "UPDATE Inscription set commentaire=?, personne_id=?, restaurant=? WHERE id=?";
+	private static final String UPDATE_INSCRIPTION = "UPDATE Inscription set commentaire=?, personne_id=?, restaurant_id=? WHERE id=?";
 	
 	@Override
 	public void insert(Inscription inscription) throws BusinessException {
@@ -42,10 +42,9 @@ public class InscriptionDAOJdbcImpl implements InscriptionDAO {
 		try(Connection cnx = ConnectionProvider.getConnection())
 		{
 			PreparedStatement pstmt = cnx.prepareStatement(INSERT_INSCRIPTION, PreparedStatement.RETURN_GENERATED_KEYS);			
-			pstmt.setInt(1, inscription.getId());
-			pstmt.setString(2, inscription.getCommentaire());
-			pstmt.setInt(3, inscription.getPersonne().getId());
-			pstmt.setInt(4, inscription.getRestaurant().getId());
+			pstmt.setString(1, inscription.getCommentaire());
+			pstmt.setInt(2, inscription.getPersonne().getId());
+			pstmt.setInt(3, inscription.getRestaurant().getId());
 			pstmt.executeUpdate();
 			
 			ResultSet rs = pstmt.getGeneratedKeys();

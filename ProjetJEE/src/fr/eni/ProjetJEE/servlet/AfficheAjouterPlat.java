@@ -49,9 +49,9 @@ public class AfficheAjouterPlat extends HttpServlet {
 		String uriImage = request.getParameter("image");
 		String categorie = request.getParameter("categorie");
 		
-		String[] parts = categorie.split("@");
-		int categorie_id = Integer.parseInt(parts[0]);
-		String categorie_nom = parts[1];
+		String[] categorie_infos = categorie.split("@");
+		int categorie_id = Integer.parseInt(categorie_infos[0]);
+		String categorie_nom = categorie_infos[1];
 
 		Double prix1 = Double.parseDouble(prix);
 		

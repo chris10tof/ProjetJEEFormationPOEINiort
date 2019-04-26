@@ -1,10 +1,10 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <main class="main">
 	
 	<!-- Formulaire d'inscription -->
-	<form method="post" action="Inscription">
+	<form method="post" action="${pageContext.request.contextPath}/Inscription">
             <fieldset>
                 <legend>Inscription</legend>
                 <p>Vous pouvez vous inscrire via ce formulaire.</p>
@@ -13,7 +13,7 @@
                 <input type="text" id="nom" name="nom" value="" size="20" maxlength="20" />
                 <br />
                 
-                <label for="nom">Prénom<span class="requis">*</span></label>
+                <label for="prenom">Prénom<span class="requis">*</span></label>
                 <input type="text" id="prenom" name="prenom" value="" size="20" maxlength="20" />
                 <br />
 				
@@ -21,17 +21,24 @@
                 <input type="text" id="email" name="email" value="" size="20" maxlength="60" />
                 <br />
 
-                <label for="motdepasse">Mot de passe <span class="requis">*</span></label>
-                <input type="password" id="motdepasse" name="motdepasse" value="" size="20" maxlength="20" />
+                <label for="mdp">Mot de passe <span class="requis">*</span></label>
+                <input type="password" id="mdp" name="mdp" value="" size="20" maxlength="20" />
                 <br />
 
-                <label for="confirmation">Confirmation du mot de passe <span class="requis">*</span></label>
-                <input type="password" id="confirmation" name="confirmation" value="" size="20" maxlength="20" />
+                <label for="confMdp">Confirmation du mot de passe <span class="requis">*</span></label>
+                <input type="password" id="confMdp" name="confMdp" value="" size="20" maxlength="20" />
                 <br />
                 
                 <label for="commentaire">Comment avez-vous connu ce restaurant?<span class="requis">*</span></label>
-                <textarea></textarea>
-                <br />                
+                <input type="text" name="commentaire" id="commentaire">
+                <br /> 
+                
+		    	<label>Wsh tu veux quel resto :</label>
+		    	<select name="restaurant">
+		    		<c:forEach var="resto" items="${listeRestaurants}">
+	        			<option value="${resto.id}@${resto.localisation}">${resto.localisation}</option>
+	        		</c:forEach>
+	   			</select><br>                 
 
                 <input type="submit" value="Inscription" class="sansLabel" />
                 <br />
