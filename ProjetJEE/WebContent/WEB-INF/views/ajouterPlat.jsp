@@ -6,7 +6,7 @@
 <!-- Inclusion du head -->
 <%@ include file="./fragments/head.jspf"%>
 
-<body>
+<body class="container">
 
 	<!-- Inclusion du header -->
 	<%@ include file="./fragments/header.jspf"%>
