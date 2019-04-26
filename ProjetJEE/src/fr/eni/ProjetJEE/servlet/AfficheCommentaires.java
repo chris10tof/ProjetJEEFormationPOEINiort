@@ -60,5 +60,4 @@ public class AfficheCommentaires extends HttpServlet {
 		dispatcher = request.getRequestDispatcher("/WEB-INF/listeCommentaire.jsp");
 		dispatcher.forward(request, response);
 	}
-
 }

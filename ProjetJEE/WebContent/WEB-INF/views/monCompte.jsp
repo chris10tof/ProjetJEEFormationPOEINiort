@@ -3,21 +3,11 @@
 
 <!DOCTYPE html>
 <html>
-
-<!-- Inclusion du head -->
 <%@ include file="./fragments/head.jspf"%>
 
-<body>
-
-	<!-- Inclusion du header -->
-	<%@ include file="./fragments/header.jspf"%>
-
-	<!-- Inclusion du header -->
-	<%@ include file="./fragments/main/mainMonCompte.jspf"%>
-
-	<!-- Inclusion du header -->
-	<%@ include file="./fragments/footer.jspf"%>
-
-</body>
-
+	<body class="container">
+		<%@ include file="./fragments/header.jspf"%>
+		<%@ include file="./fragments/main/mainMonCompte.jspf"%>
+		<%@ include file="./fragments/footer.jspf"%>
+	</body>
 </html>
