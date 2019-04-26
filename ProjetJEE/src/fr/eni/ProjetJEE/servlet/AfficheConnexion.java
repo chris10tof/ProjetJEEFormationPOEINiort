@@ -56,7 +56,7 @@ public class AfficheConnexion extends HttpServlet {
 				} else if(i < 3) {
 					i++;
 					request.setAttribute("erreurPassword", "Identifiant ou mot de passe incorrect");
-					RequestDispatcher rd = request.getRequestDispatcher("connexion");
+					RequestDispatcher rd = request.getRequestDispatcher("/Connexion");
 					rd.forward(request, response);
 				}
 			}
