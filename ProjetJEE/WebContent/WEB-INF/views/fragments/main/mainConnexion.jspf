@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 
 
-<main>
+<main class="main">
 	<!-- Formulaire de connexion -->
 	<form action="" method="post">
 	    <div>

@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 
-<main>
+<main class="main">
 	<h2>Notre forum n'est pas encore ouvert.</h2>
 	<br>
 	<img  src="${pageContext.servletContext.contextPath}/img/page_construction.jpg" alt="Page en construction" title="Page en construction">

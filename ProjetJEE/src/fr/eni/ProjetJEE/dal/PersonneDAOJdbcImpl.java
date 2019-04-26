@@ -14,15 +14,15 @@ import fr.eni.ProjetJEE.dal.dao.PersonneDAO;
 
 public class PersonneDAOJdbcImpl implements PersonneDAO {
 
-	private static final String SELECT_ALL = "select p.id, p.Nom, Prenom, email, mdp, uri_avatar, r.id as role_id, r.nom as role_nom from Personne p, Role r where p.role_id=r.id;";
+	private static final String SELECT_ALL = "SELECT p.id, p.Nom, Prenom, email, mdp, uri_avatar, r.id AS role_id, r.nom AS role_nom FROM Personne p, Role r WHERE p.role_id=r.id;";
 	
-	private static final String SELECT_BY_ID =	"select p.id, p.Nom, Prenom, email, mdp, uri_avatar, r.id as role_id, r.nom as role_nom from Personne p, Role r where p.role_id=r.id and r.id=?;";
+	private static final String SELECT_BY_ID =	"SELECT p.id, p.Nom, Prenom, email, mdp, uri_avatar, r.id AS role_id, r.nom AS role_nom FROM Personne p, Role r WHERE p.role_id=r.id AND r.id=?;";
 	
-	private static final String INSERT_PERSONNE = "INSERT INTO Personne(nom,prenom,email,mdp,uri_avatar,role_id) VALUES(?,?,?,?,?,?,?);";
+	private static final String INSERT_PERSONNE = "INSERT INTO Personne(nom, prenom, email, mdp, uri_avatar, role_id) VALUES(?,?,?,?,?,?,?);";
 
 	private static final String DELETE_PERSONNE = "DELETE FROM Personne WHERE id=?";
 	
-	private static final String UPDATE_PERSONNE = "UPDATE Personne set nom=? WHERE id=?";
+	private static final String UPDATE_PERSONNE = "UPDATE Personne SET nom=? WHERE id=?";
 	
 	@Override
 	public void insert(Personne personne) throws BusinessException {
@@ -60,6 +60,33 @@ public class PersonneDAOJdbcImpl implements PersonneDAO {
 		}
 	}
 
+	public static Personne checkUser(String email, String mdp) throws SQLException {
+		Connection conn = null;
+
+		String sql = "SELECT p.id, p.Nom, Prenom, email, mdp, uri_avatar, r.id AS role_id, r.nom AS role_nom FROM [Personne] p LEFT JOIN [Role] r ON p.role_id = r.id WHERE email=? and mdp=?";
+		Personne personne = null;
+
+		conn = ConnectionProvider.getConnection();
+		PreparedStatement pstm = conn.prepareStatement(sql);
+
+		pstm.setString(1, email);
+        pstm.setString(2, mdp);
+        ResultSet rs =pstm.executeQuery();
+
+        if(rs.next()) {
+    		Role role = new Role();
+    		int roleId = rs.getInt("role_id");
+    		String roleName = rs.getString("role_nom");
+
+    		role.setId(roleId);
+    		role.setNom(roleName);
+
+        	personne = new Personne(rs.getInt("id"), rs.getString("nom"), rs.getString("prenom"), rs.getString("email"), rs.getString("mdp"), rs.getString("uri_avatar"), role);
+        }
+
+        return personne;
+	}
+
 	@Override
 	public void delete(int id) throws BusinessException {
 		try(Connection cnx = ConnectionProvider.getConnection())
@@ -74,7 +101,6 @@ public class PersonneDAOJdbcImpl implements PersonneDAO {
 			//businessException.ajouterErreur(CodesResultatDAL.SUPPRESSION_LISTE_ERREUR);
 			throw businessException;
 		}
-		
 	}
 
 	@Override
@@ -162,7 +188,6 @@ public class PersonneDAOJdbcImpl implements PersonneDAO {
 		}
 	}
 	
-
 	private Personne map(ResultSet rs) throws SQLException {
 		
 		int id = rs.getInt("id");
@@ -183,14 +208,3 @@ public class PersonneDAOJdbcImpl implements PersonneDAO {
 		return personne;
 	}
 }
-
-
-
-
-
-
-
-
-
-
-

@@ -5,19 +5,18 @@
 	<nav class="navbar navbar-inverse">
     	<div class="container-fluid">
     	<div class="navbar-header">
-        	<a class="navbar-brand" href="#">101 Recettes Gourmandes</a>
+        	<a class="navbar-brand" href="<%=request.getContextPath()%>/Accueil">101 Recettes Gourmandes</a>
         </div>
     		<ul class="nav navbar-nav">
 				<li><a href="<%=request.getContextPath()%>/Accueil">Accueil</a></li>
 				<li><a href="<%=request.getContextPath()%>/NosPlats">Nos Plats</a></li>
-				<li><a href="<%=request.getContextPath()%>/Connexion">Connexion</a></li>		<!-- Quand on n'est pas connecté -->
 				<li><a href="<%=request.getContextPath()%>/MonCompte">Mon Compte</a></li>		<!-- Quand on est connecté -->
 				<li><a href="<%=request.getContextPath()%>/AjouterPlat">Ajouter un Plat</a></li><!-- Quand l'ADMIN est connecté -->
 				<li><a href="<%=request.getContextPath()%>/Forum">Forum</a></li>				<!-- Quand on est connecté -->
 			</ul>
 			<ul class="nav navbar-nav navbar-right">
 	      		<li><a href="<%=request.getContextPath()%>/Inscription"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
-	      		<li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>		<!-- Quand on n'est pas connecté -->
+	      		<li><a href="<%=request.getContextPath()%>/Connexion"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>		<!-- Quand on n'est pas connecté -->
    			</ul>
 		</div>
 	</nav>

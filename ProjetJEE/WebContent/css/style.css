@@ -1,5 +1,6 @@
 header,
-header > *, main {
+header>*,
+main {
 	width: fit-content;
 	margin: auto;
 }
@@ -107,10 +108,10 @@ ul .navbar-nav {
 	    /* flex-direction: row !important;
 }
 
-li.list-group-item > div:first-child {
+.left {
 	float: left;
 }
-
-.list-group-item > div:last-child {
+.right {
 	float: right;
 }
+
