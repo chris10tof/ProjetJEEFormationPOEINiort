@@ -39,6 +39,16 @@ public class Plat {
 		this.nbrCommande = nbrCommande;
 	}
 	
+	public Plat(String nom, String description, double prix, String recette, String uriImage, Categorie categorie) {
+		super();
+		this.nom = nom;
+		this.description = description;
+		this.prix = prix;
+		this.recette = recette;
+		this.uriImage = uriImage;
+		this.categorie = categorie;
+	}
+
 	public int getId() {
 		return id;
 	}

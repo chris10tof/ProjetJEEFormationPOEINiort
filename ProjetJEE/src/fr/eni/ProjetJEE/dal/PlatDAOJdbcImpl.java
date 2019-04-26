@@ -16,7 +16,7 @@ public class PlatDAOJdbcImpl implements PlatDAO {
 
 	private static final String SELECT_ALL = "SELECT p.id,p.nom,description,prix,recette,uri_image,categorie_id,nbre_commande_totale,c.id as catId,c.nom as catNom FROM Plat p, Categorie c WHERE p.categorie_id=c.id;";	
 	private static final String SELECT_BY_ID =	"SELECT p.id,p.nom,description,prix,recette,uri_image,categorie_id,c.id,c.nom FROM Plat p, Categorie c WHERE p.categorie_id=c.id; AND c.id=?";	
-	private static final String INSERT_PLAT = "INSERT INTO PLAT(nom,description,prix,recette,uri_image,categorie_id,nbre_commande_totale) VALUES(?,?,?,?,?,?,?);";
+	private static final String INSERT_PLAT = "INSERT INTO PLAT(nom,description,prix,recette,uri_image,categorie_id) VALUES(?,?,?,?,?,?);";
 	private static final String DELETE_PLAT = "DELETE FROM PLAT WHERE id=?";	
 	private static final String UPDATE_PLAT = "UPDATE PLAT set nom=?,description=?,prix=?,recette=?,uri_image=?,categorie_id=?,nbre_commande_totale=?  WHERE id=?";
 	
@@ -39,7 +39,6 @@ public class PlatDAOJdbcImpl implements PlatDAO {
 			pstmt.setString(4, plat.getRecette());
 			pstmt.setString(5, plat.getUriImage());
 			pstmt.setInt(6, plat.getCategorie().getId());
-			pstmt.setInt(4, plat.getNbrCommande());
 			pstmt.executeUpdate();
 			
 			ResultSet rs = pstmt.getGeneratedKeys();
