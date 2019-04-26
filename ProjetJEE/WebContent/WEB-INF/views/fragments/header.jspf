@@ -14,7 +14,7 @@
 				<c:if test = "${sessionScope.mail != null}">
 					<li><a href="<%=request.getContextPath()%>/MonCompte">Mon Compte</a></li>		<!-- Quand on est connecté -->
 				</c:if>
-				<c:if test="${sessionScope.role_id == 'Admin'}">
+				<c:if test="${sessionScope.role == 'Admin'}">
 					<li><a href="<%=request.getContextPath()%>/AjouterPlat">Ajouter un Plat</a></li><!-- Quand l'ADMIN est connecté -->
 				</c:if>
 				<c:if test="${sessionScope.mail != null}">

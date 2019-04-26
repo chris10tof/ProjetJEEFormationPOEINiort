@@ -12,6 +12,7 @@ import javax.servlet.http.HttpSession;
 
 import fr.eni.ProjetJEE.BusinessException;
 import fr.eni.ProjetJEE.bo.Personne;
+import fr.eni.ProjetJEE.bo.Role;
 import fr.eni.ProjetJEE.dal.PersonneDAOJdbcImpl;
 import fr.eni.ProjetJEE.dal.dao.PersonneDAO;
 
@@ -43,7 +44,7 @@ public class AfficheConnexion extends HttpServlet {
 				session.setAttribute("mail", personne.getEmail());
 				session.setAttribute("mdp", personne.getMdp());
 				session.setAttribute("uri_avatar", personne.getUriAvatar());
-				session.setAttribute("role_id", personne.getRole());
+				session.setAttribute("role", personne.getRole().getNom());
 
 				RequestDispatcher rd = request.getRequestDispatcher("/Accueil");
 				rd.forward(request, response);
